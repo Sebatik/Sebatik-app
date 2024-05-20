@@ -49,4 +49,17 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    /**
+     * libraries :
+     * glide
+     * paging 3
+     * datastore
+     * coroutines
+     * tensorflow lite
+     * retrofit + okhttp3
+     * room????
+     * firebase?? depends on auth method
+     *
+     */
 }
