@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "504134071580",
+    "project_id": "sebatik-bangkit",
+    "storage_bucket": "sebatik-bangkit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504134071580:android:ca865611cd9cf35d5df6d9",
+        "android_client_info": {
+          "package_name": "com.bangkit.sebatik"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi8F2r7ZwvRk0cSHNqo56l5I8kdpHUp_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
