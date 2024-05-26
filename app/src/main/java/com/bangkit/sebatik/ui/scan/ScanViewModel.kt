@@ -1,7 +1,7 @@
-package com.bangkit.sebatik.ui.home
+package com.bangkit.sebatik.ui.scan
 
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class ScanViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
