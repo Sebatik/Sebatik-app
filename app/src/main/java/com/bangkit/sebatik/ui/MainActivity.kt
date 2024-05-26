@@ -1,12 +1,8 @@
 package com.bangkit.sebatik.ui
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.replace
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.databinding.ActivityMainBinding
 import com.bangkit.sebatik.ui.favorites.FavoriteFragment
@@ -39,13 +35,12 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-
     }
 
     private fun replaceFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
         fragmentTransaction.replace(R.id.frameLayout, fragment)
         fragmentTransaction.commit()
     }

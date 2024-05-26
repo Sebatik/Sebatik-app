@@ -3,5 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     //blue hex colour
-    <color name="blue">#FF0000FF</color>
+    <color name="blue">#0000FF</color>
+    <color name="brown">#AF8260</color>
+    <color name="maroon">#803D3B</color>
+    <color name="green">#BFD8AF</color>
 </resources>
