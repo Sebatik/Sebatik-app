@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Sebatik"
         tools:targetApi="31">
         <activity
+            android:name=".ui.addpost.AddPostActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false" />
         <activity
