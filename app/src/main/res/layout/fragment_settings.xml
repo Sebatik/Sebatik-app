@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,10 +13,14 @@
 
         <TextView
             android:id="@+id/tv_logout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Logout" />
+            android:paddingVertical="24dp"
+            android:paddingStart="12dp"
+            android:text="Logout"
+            app:drawableStartCompat="@drawable/baseline_logout_24"
+            android:drawablePadding="8dp"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
