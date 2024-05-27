@@ -11,8 +11,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import com.bangkit.sebatik.R
+import com.bangkit.sebatik.data.UserPreferences
+import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.databinding.FragmentScanBinding
+import com.bangkit.sebatik.ui.login.LoginViewModel
+import com.bangkit.sebatik.util.ViewModelFactory
 import com.bangkit.sebatik.util.getImageUri
 
 class ScanFragment : Fragment() {
@@ -21,8 +26,6 @@ class ScanFragment : Fragment() {
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
 
-
-    private val viewModel: ScanViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
