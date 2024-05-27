@@ -1,4 +1,4 @@
-package com.bangkit.sebatik.models
+package com.bangkit.sebatik.data.models
 
 data class Post(
     val email : String? = null,

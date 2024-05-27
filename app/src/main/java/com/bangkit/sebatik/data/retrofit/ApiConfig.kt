@@ -1,4 +1,4 @@
-package com.bangkit.sebatik.retrofit
+package com.bangkit.sebatik.data.retrofit
 
 import com.bangkit.sebatik.BuildConfig
 import okhttp3.OkHttpClient
