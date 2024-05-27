@@ -58,6 +58,14 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
     /**
      * libraries :
      * glide
