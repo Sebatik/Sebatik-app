@@ -10,6 +10,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.dataStore
@@ -47,6 +50,16 @@ class SettingsFragment() : Fragment() {
                 }
             val alert = builder.create()
             alert.show()
+        }
+
+        binding.tvOurTeam.setOnClickListener {
+            val options = navOptions {
+                anim {
+                    enter = R.anim.fade_in
+                    popExit = R.anim.fade_out
+                }
+            }
+            findNavController().navigate(R.id.action_settingsFragment_to_teamFragment, null, options)
         }
     }
 

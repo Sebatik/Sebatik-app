@@ -32,5 +32,14 @@
       android:id="@+id/settingsFragment"
       android:name="com.bangkit.sebatik.ui.settings.SettingsFragment"
       android:label="fragment_settings"
-      tools:layout="@layout/fragment_settings" />
+      tools:layout="@layout/fragment_settings" >
+    <action
+        android:id="@+id/action_settingsFragment_to_teamFragment"
+        app:destination="@id/teamFragment" />
+  </fragment>
+  <fragment
+      android:id="@+id/teamFragment"
+      android:name="com.bangkit.sebatik.ui.team.TeamFragment"
+      android:label="fragment_team"
+      tools:layout="@layout/fragment_team" />
 </navigation>

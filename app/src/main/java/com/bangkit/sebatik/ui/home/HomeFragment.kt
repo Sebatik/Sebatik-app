@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.Result
@@ -49,12 +50,14 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val layoutManager  = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvExplore.layoutManager = layoutManager
-
-
         binding.btnScan.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_scanFragment)
+            val options = navOptions {
+                anim {
+                    enter = R.anim.fade_in
+                    popExit = R.anim.fade_out
+                }
+            }
+            findNavController().navigate(R.id.action_homeFragment_to_scanFragment, null, options)
         }
 
         viewModel.getPhoto().observe(requireActivity()) {
@@ -100,6 +103,7 @@ class HomeFragment : Fragment() {
         val adapter = ExploreAdapter()
         adapter.submitList(item)
         binding.rvExplore.adapter = adapter
+        binding.rvExplore.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun productList(items: List<ExploreResponseItem>) {
