@@ -17,10 +17,8 @@ import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.Result
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.adapter.CarouselAdapter
-import com.bangkit.sebatik.data.adapter.ExploreAdapter
 import com.bangkit.sebatik.data.adapter.ProductAdapter
 import com.bangkit.sebatik.data.dataStore
-import com.bangkit.sebatik.data.response.ExploreResponse
 import com.bangkit.sebatik.data.response.ExploreResponseItem
 import com.bangkit.sebatik.databinding.FragmentHomeBinding
 import com.bangkit.sebatik.util.ViewModelFactory
@@ -97,12 +95,6 @@ class HomeFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-
-//    private fun batikList(item: List<ExploreResponseItem>) {
-//        val adapter = ExploreAdapter()
-//        adapter.submitList(item)
-//        binding.rvExplore.adapter = adapter
-//    }
 
     private fun productList(items: List<ExploreResponseItem>) {
         val adapter = ProductAdapter()
