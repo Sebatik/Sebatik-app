@@ -75,8 +75,9 @@ dependencies {
     //circleimageview
     implementation (libs.circleimageview)
 
-    //glide
+    //glide + coil
     implementation (libs.glide)
+    implementation (libs.coil)
 
 
     /**

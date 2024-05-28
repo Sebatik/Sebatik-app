@@ -2,6 +2,8 @@ package com.bangkit.sebatik.ui.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Patterns.EMAIL_ADDRESS
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -40,28 +42,34 @@ class RegisterActivity : AppCompatActivity() {
             val username = binding.edUsername.text.toString()
             val phoneNumber = binding.edPhone.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                firebaseAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            val userId = firebaseAuth.currentUser!!.uid
-                            val user = User(username, email, phoneNumber)
-                            database.child("users").child(userId).setValue(user)
-                            Toast.makeText(this, "Signup Successful", Toast.LENGTH_SHORT).show()
-                            toLogin()
-                            finish()
-                        } else {
-                            Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
-                        }
-                    }
-            } else {
-                Toast.makeText(this, "Empty Fields Are Not Allowed", Toast.LENGTH_SHORT).show()
+            if (!EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.edEmail.error = "Invalid Email"
             }
-        }
+            if (TextUtils.isEmpty(password) || password.length < 6 ) {
+                binding.edUsername.error = "Invalid Password"
+            }
+            if (TextUtils.isEmpty(phoneNumber)) {
+                binding.edPhone.error = "Enter Phone Number"
+            }
+            if (TextUtils.isEmpty(username)) {
+                binding.edUsername.error = "Enter Username"
+            }
 
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val userId = firebaseAuth.currentUser!!.uid
+                        val user = User(username, email, phoneNumber)
+                        database.child("users").child(userId).setValue(user)
+                        Toast.makeText(this, "Signup Successful", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
     }
+
     private fun toLogin() {
         startActivity(Intent(this, LoginActivity::class.java))
     }
-
 }

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.Result
 import com.bangkit.sebatik.data.UserPreferences
+import com.bangkit.sebatik.data.adapter.CarouselAdapter
 import com.bangkit.sebatik.data.adapter.ExploreAdapter
 import com.bangkit.sebatik.data.adapter.ProductAdapter
 import com.bangkit.sebatik.data.dataStore
@@ -23,6 +24,7 @@ import com.bangkit.sebatik.data.response.ExploreResponse
 import com.bangkit.sebatik.data.response.ExploreResponseItem
 import com.bangkit.sebatik.databinding.FragmentHomeBinding
 import com.bangkit.sebatik.util.ViewModelFactory
+import com.google.android.material.carousel.CarouselSnapHelper
 
 class HomeFragment : Fragment() {
 
@@ -50,6 +52,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupCarousel()
         binding.btnScan.setOnClickListener {
             val options = navOptions {
                 anim {
@@ -58,23 +61,6 @@ class HomeFragment : Fragment() {
                 }
             }
             findNavController().navigate(R.id.action_homeFragment_to_scanFragment, null, options)
-        }
-
-        viewModel.getPhoto().observe(requireActivity()) {
-            if (it != null) {
-                when (it) {
-                    is Result.Loading -> showLoading(true)
-                    is Result.Success -> {
-                        showLoading(false)
-                        batikList(it.data)
-                    }
-                    is Result.Error -> {
-                        showLoading(false)
-                        Log.d("HomeFragment", "onViewCreated: ${it.error}")
-                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
         }
 
         viewModel.getProducts().observe(requireActivity()) {
@@ -95,16 +81,28 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setupCarousel() {
+        CarouselSnapHelper().attachToRecyclerView(binding.rvExplore)
+        binding.rvExplore.adapter = CarouselAdapter(images = getImages())
+    }
+
+    private fun getImages(): List<String> {
+        return listOf(
+            "https://f.uguu.se/fflwZSMB.jpg",
+            "https://f.uguu.se/FeyDkgRh.jpeg",
+            "https://f.uguu.se/FznpjOxA.jpg"
+        )
+    }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun batikList(item: List<ExploreResponseItem>) {
-        val adapter = ExploreAdapter()
-        adapter.submitList(item)
-        binding.rvExplore.adapter = adapter
-        binding.rvExplore.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-    }
+//    private fun batikList(item: List<ExploreResponseItem>) {
+//        val adapter = ExploreAdapter()
+//        adapter.submitList(item)
+//        binding.rvExplore.adapter = adapter
+//    }
 
     private fun productList(items: List<ExploreResponseItem>) {
         val adapter = ProductAdapter()
