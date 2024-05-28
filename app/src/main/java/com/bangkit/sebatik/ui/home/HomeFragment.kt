@@ -86,11 +86,11 @@ class HomeFragment : Fragment() {
         binding.rvExplore.adapter = CarouselAdapter(images = getImages())
     }
 
-    private fun getImages(): List<String> {
+    private fun getImages(): List<Int> {
         return listOf(
-            "https://f.uguu.se/fflwZSMB.jpg",
-            "https://f.uguu.se/FeyDkgRh.jpeg",
-            "https://f.uguu.se/FznpjOxA.jpg"
+            R.drawable.carousel_1,
+            R.drawable.carousel_2,
+            R.drawable.carousel_3
         )
     }
 

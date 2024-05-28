@@ -11,11 +11,11 @@ import coil.transform.RoundedCornersTransformation
 import com.bangkit.sebatik.R
 import com.bumptech.glide.Glide
 
-class CarouselAdapter(private val images: List<String>): RecyclerView.Adapter<CarouselAdapter.CarouselViewHolder>() {
+class CarouselAdapter(private val images: List<Int>): RecyclerView.Adapter<CarouselAdapter.CarouselViewHolder>() {
     class CarouselViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val carouselImageView: AppCompatImageView = itemView.findViewById(R.id.iv_carousel)
 
-        fun bind(imageUrl: String) {
+        fun bind(imageUrl: Int) {
             carouselImageView.load(imageUrl) {
                 transformations(RoundedCornersTransformation(8f))
             }
