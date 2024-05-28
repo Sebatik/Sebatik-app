@@ -34,8 +34,19 @@ class SettingsFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tvLogout.setOnClickListener {
-            showDialog("Logout","Are you sure you want to logout?")
-            viewModel.logout()
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setCancelable(true)
+                .setNegativeButton(getString(R.string.no)) {
+                        dialog, _ -> dialog.cancel()
+                }
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    viewModel.logout()
+                    navigateToActivity()
+                }
+            val alert = builder.create()
+            alert.show()
         }
     }
 
@@ -46,21 +57,6 @@ class SettingsFragment() : Fragment() {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
-    }
-
-    private fun showDialog(title: String, message: String) {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle(title)
-            .setMessage(message)
-            .setCancelable(true)
-            .setNegativeButton(getString(R.string.no)) {
-                    dialog, _ -> dialog.cancel()
-            }
-            .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                navigateToActivity()
-            }
-        val alert = builder.create()
-        alert.show()
     }
 
     private fun navigateToActivity() {

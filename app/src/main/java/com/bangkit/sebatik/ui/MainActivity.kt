@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController.setGraph(R.navigation.mobile_navigation)
 
         val navView: BottomNavigationView = binding.bottomNavbar
         navView.setupWithNavController(navController)
