@@ -20,16 +20,11 @@ class CarouselAdapter(private val images: List<Int>): RecyclerView.Adapter<Carou
                 transformations(RoundedCornersTransformation(8f))
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarouselViewHolder {
         return CarouselViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.carousel_item,
-                parent,
-                false
-            )
+            LayoutInflater.from(parent.context).inflate(R.layout.carousel_item, parent, false)
         )
     }
 

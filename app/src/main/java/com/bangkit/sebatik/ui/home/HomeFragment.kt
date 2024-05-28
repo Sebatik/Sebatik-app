@@ -19,10 +19,18 @@ import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.adapter.CarouselAdapter
 import com.bangkit.sebatik.data.adapter.ProductAdapter
 import com.bangkit.sebatik.data.dataStore
+import com.bangkit.sebatik.data.models.User
 import com.bangkit.sebatik.data.response.ExploreResponseItem
 import com.bangkit.sebatik.databinding.FragmentHomeBinding
 import com.bangkit.sebatik.util.ViewModelFactory
 import com.google.android.material.carousel.CarouselSnapHelper
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class HomeFragment : Fragment() {
 
@@ -32,10 +40,12 @@ class HomeFragment : Fragment() {
     private val viewModel by viewModels<HomeViewModel>() {
         ViewModelFactory.getInstance(requireContext(), UserPreferences.getInstance(dataStore))
     }
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataStore = requireContext().dataStore
+        firebaseAuth = Firebase.auth
 
     }
 
@@ -51,6 +61,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupCarousel()
+        fetchUsername()
         binding.btnScan.setOnClickListener {
             val options = navOptions {
                 anim {
@@ -76,6 +87,26 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun fetchUsername() {
+        val currentUser = firebaseAuth.currentUser
+        currentUser?.let {
+            val userId = currentUser.uid
+            val databaseRef = FirebaseDatabase.getInstance().getReference("users").child(userId)
+            databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val user = snapshot.getValue(User::class.java)
+                    val username = user?.username
+                    binding.tvUsername.text = "Hello, ${username}"
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("HomeFragment", "onCancelled: ${error.message}")
+                    Toast.makeText(requireContext(), "Failed to fetch user data", Toast.LENGTH_SHORT).show()
+                }
+
+            })
         }
     }
 

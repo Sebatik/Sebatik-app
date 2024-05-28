@@ -13,16 +13,6 @@ import com.google.gson.GsonBuilder
 
 class Repository private constructor(private val apiService: ApiService) {
 
-    fun getPhotos(): LiveData<Result<List<ExploreResponseItem>>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getPhoto()
-            emit(Result.Success(response))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message.toString()))
-        }
-    }
-
     fun getProducts(): LiveData<Result<List<ExploreResponseItem>>> = liveData {
         emit(Result.Loading)
         try {

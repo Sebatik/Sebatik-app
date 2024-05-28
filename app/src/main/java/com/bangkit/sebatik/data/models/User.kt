@@ -1,7 +1,7 @@
 package com.bangkit.sebatik.data.models
 
 class User(
-    val username: String,
-    val email: String,
-    val phoneNumber: String
+    val username: String? = null,
+    val email: String? = null,
+    val phoneNumber: String? = null
 )
