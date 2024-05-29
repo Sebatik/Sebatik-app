@@ -79,6 +79,9 @@ dependencies {
     implementation (libs.glide)
     implementation (libs.coil)
 
+    //paging 3
+    implementation(libs.androidx.paging.runtime.ktx)
+
 
     /**
      * libraries :

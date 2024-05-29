@@ -15,9 +15,9 @@
     </fragment>
     <fragment
         android:id="@+id/productFragment"
-        android:name="com.bangkit.sebatik.ui.favorites.ProductFragment"
+        android:name="com.bangkit.sebatik.ui.product.ProductFragment"
         android:label="fragment_product"
-        tools:layout="@layout/product_favorite" />
+        tools:layout="@layout/fragment_product" />
   <fragment
       android:id="@+id/scanFragment"
       android:name="com.bangkit.sebatik.ui.scan.ScanFragment"

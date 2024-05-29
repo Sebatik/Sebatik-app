@@ -20,7 +20,7 @@ import com.bangkit.sebatik.data.adapter.CarouselAdapter
 import com.bangkit.sebatik.data.adapter.ProductAdapter
 import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.data.models.User
-import com.bangkit.sebatik.data.response.ExploreResponseItem
+import com.bangkit.sebatik.data.response.ProductResponseItem
 import com.bangkit.sebatik.databinding.FragmentHomeBinding
 import com.bangkit.sebatik.util.ViewModelFactory
 import com.google.android.material.carousel.CarouselSnapHelper
@@ -127,7 +127,7 @@ class HomeFragment : Fragment() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun productList(items: List<ExploreResponseItem>) {
+    private fun productList(items: List<ProductResponseItem>) {
         val adapter = ProductAdapter()
         adapter.submitList(items)
         binding.rvLatestProduct.adapter = adapter

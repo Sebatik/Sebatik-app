@@ -2,14 +2,14 @@ package com.bangkit.sebatik.data.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.sebatik.data.response.ProductResponseItem
 import com.bangkit.sebatik.databinding.ProductItemBinding
 import com.bumptech.glide.Glide
 
-class ProductAdapter(): ListAdapter<ProductResponseItem, ProductAdapter.ViewHolder>(DIFF_CALLBACK) {
+class AllProductAdapter(): PagingDataAdapter<ProductResponseItem, AllProductAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     class ViewHolder(val binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -25,7 +25,7 @@ class ProductAdapter(): ListAdapter<ProductResponseItem, ProductAdapter.ViewHold
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val explore = getItem(position)
-        holder.binding.tvProductTitle.text = explore.title
+        holder.binding.tvProductTitle.text = explore!!.title
         holder.binding.tvPrice.text = "$ " + explore.price.toString()
         Glide.with(holder.itemView)
             .load(explore.image)

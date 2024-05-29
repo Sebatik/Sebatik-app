@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 data class ExploreResponse(
 
 	@field:SerializedName("ExploreResponse")
-	val exploreResponse: List<ExploreResponseItem> = emptyList()
+	val exploreResponse: List<ProductResponseItem> = emptyList()
 )
 
-data class ExploreResponseItem(
+data class ProductResponseItem(
 
 	@field:SerializedName("image")
 	val image: String? = null,

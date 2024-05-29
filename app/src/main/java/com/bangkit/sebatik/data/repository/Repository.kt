@@ -1,23 +1,43 @@
 package com.bangkit.sebatik.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.bangkit.sebatik.data.Result
-import com.bangkit.sebatik.data.UserPreferences
-import com.bangkit.sebatik.data.response.ExploreResponse
-import com.bangkit.sebatik.data.response.ExploreResponseItem
-import com.bangkit.sebatik.data.retrofit.ApiConfig
+import com.bangkit.sebatik.data.response.ProductResponseItem
 import com.bangkit.sebatik.data.retrofit.ApiService
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.bangkit.sebatik.data.source.ProductPagingSource
+import kotlinx.coroutines.flow.first
 
 class Repository private constructor(private val apiService: ApiService) {
 
-    fun getProducts(): LiveData<Result<List<ExploreResponseItem>>> = liveData {
+    fun getProducts(): LiveData<Result<List<ProductResponseItem>>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getProducts()
             emit(Result.Success(response))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun getAllProducts() : LiveData<Result<PagingData<ProductResponseItem>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val pager = Pager(
+                config = PagingConfig(
+                    pageSize = 5
+                ),
+                pagingSourceFactory = {
+                    ProductPagingSource(apiService)
+                }
+            ).liveData
+            val pagingData = pager.asFlow().first()
+            emit(Result.Success(pagingData))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
