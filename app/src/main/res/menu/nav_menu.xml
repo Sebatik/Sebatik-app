@@ -6,17 +6,17 @@
         android:id="@+id/homeFragment"
         android:icon="@drawable/baseline_home_filled_24"/>
     <item
-        android:title="Favorites"
-        android:id="@+id/favoriteFragment"
-        android:icon="@drawable/baseline_favorite_24"/>
+        android:title="Product"
+        android:id="@+id/productFragment"
+        android:icon="@drawable/baseline_product_24"/>
     <item
         android:title="Scan"
         android:id="@+id/scanFragment"
         android:icon="@drawable/baseline_document_scanner_24"/>
     <item
-        android:title="History"
-        android:id="@+id/historyFragment"
-        android:icon="@drawable/baseline_history_24"/>
+        android:title="Explore"
+        android:id="@+id/exploreFragment"
+        android:icon="@drawable/baseline_explore_24"/>
     <item
         android:title="Setting"
         android:id="@+id/settingsFragment"

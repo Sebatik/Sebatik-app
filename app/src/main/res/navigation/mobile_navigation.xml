@@ -14,20 +14,20 @@
           app:destination="@id/scanFragment" />
     </fragment>
     <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.bangkit.sebatik.ui.favorites.FavoriteFragment"
-        android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        android:id="@+id/productFragment"
+        android:name="com.bangkit.sebatik.ui.favorites.ProductFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/product_favorite" />
   <fragment
       android:id="@+id/scanFragment"
       android:name="com.bangkit.sebatik.ui.scan.ScanFragment"
       android:label="fragment_scan"
       tools:layout="@layout/fragment_scan" />
   <fragment
-      android:id="@+id/historyFragment"
-      android:name="com.bangkit.sebatik.ui.history.HistoryFragment"
-      android:label="fragment_history"
-      tools:layout="@layout/fragment_history" />
+      android:id="@+id/exploreFragment"
+      android:name="com.bangkit.sebatik.ui.history.ExploreFragment"
+      android:label="fragment_explore"
+      tools:layout="@layout/fragment_explore" />
   <fragment
       android:id="@+id/settingsFragment"
       android:name="com.bangkit.sebatik.ui.settings.SettingsFragment"

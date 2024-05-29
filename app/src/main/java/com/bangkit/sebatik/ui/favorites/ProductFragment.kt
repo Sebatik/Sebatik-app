@@ -1,4 +1,4 @@
-package com.bangkit.sebatik.ui.history
+package com.bangkit.sebatik.ui.favorites
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.bangkit.sebatik.R
 
-class HistoryFragment : Fragment() {
+class ProductFragment : Fragment() {
 
     companion object {
-        fun newInstance() = HistoryFragment()
+        fun newInstance() = ProductFragment()
     }
 
-    private val viewModel: HistoryViewModel by viewModels()
+    private val viewModel: FavoriteViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +26,6 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        return inflater.inflate(R.layout.product_favorite, container, false)
     }
 }

@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -18,6 +20,7 @@ import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.databinding.FragmentSettingsBinding
 import com.bangkit.sebatik.ui.login.LoginActivity
+import com.bangkit.sebatik.ui.team.TeamFragment
 import com.bangkit.sebatik.util.ViewModelFactory
 
 class SettingsFragment() : Fragment() {
