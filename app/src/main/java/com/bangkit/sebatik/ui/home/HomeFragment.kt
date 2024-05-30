@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +32,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -62,7 +64,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupCarousel()
-        fetchUsername()
         binding.btnScan.setOnClickListener {
             val options = navOptions {
                 anim {
@@ -89,26 +90,12 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-    }
 
-    private fun fetchUsername() {
-        val currentUser = firebaseAuth.currentUser
-        currentUser?.let {
-            val userId = currentUser.uid
-            val databaseRef = FirebaseDatabase.getInstance().getReference("users").child(userId)
-            databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val user = snapshot.getValue(User::class.java)
-                    val username = user?.username
-                    binding.tvUsername.text = "Hello, ${username}"
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e("HomeFragment", "onCancelled: ${error.message}")
-                    Toast.makeText(requireContext(), "Failed to fetch user data", Toast.LENGTH_SHORT).show()
-                }
-
-            })
+        viewModel.username.observe(viewLifecycleOwner) { username ->
+            binding.tvUsername.text = "Hello ${username}"
         }
+
+        viewModel.fetchUsername()
     }
 
     private fun setupCarousel() {
@@ -134,6 +121,17 @@ class HomeFragment : Fragment() {
         binding.rvLatestProduct.adapter = adapter
         binding.rvLatestProduct.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        val username: String? = null
+//        val isDataFetched = false
+//        if (!isDataFetched) {
+//            fetchUsername()
+//        } else {
+//            binding.tvUsername.text = username
+//        }
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
