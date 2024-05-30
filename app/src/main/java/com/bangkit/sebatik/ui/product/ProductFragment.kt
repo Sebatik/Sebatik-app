@@ -9,8 +9,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.Result
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.adapter.AllProductAdapter
@@ -59,6 +62,20 @@ class ProductFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        binding.btnPost.setOnClickListener {
+            binding.btnPost.postDelayed({
+                val options = navOptions {
+                    anim {
+                        enter = R.anim.fade_in
+                        exit = R.anim.fade_out
+                        popEnter = R.anim.fade_in
+                        popExit = R.anim.fade_out
+                    }
+                }
+                findNavController().navigate(R.id.action_productFragment_to_addProductFragment, null, options)
+            }, 500)
         }
     }
 

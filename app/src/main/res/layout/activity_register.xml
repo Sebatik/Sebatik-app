@@ -112,6 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
+                android:hint="+62"
                 app:layout_constraintTop_toBottomOf="@id/tv_phone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -119,7 +120,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_phone"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

@@ -1,4 +1,4 @@
-package com.bangkit.sebatik.ui.addpost
+package com.bangkit.sebatik.ui.addproduct
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.bangkit.sebatik.R
 
-class AddPostFragment : Fragment() {
+class AddProductFragment : Fragment() {
 
     companion object {
-        fun newInstance() = AddPostFragment()
+        fun newInstance() = AddProductFragment()
     }
 
-    private val viewModel: AddPostViewModel by viewModels()
+    private val viewModel: AddProductViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +26,6 @@ class AddPostFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_add_post, container, false)
+        return inflater.inflate(R.layout.fragment_add_product, container, false)
     }
 }
