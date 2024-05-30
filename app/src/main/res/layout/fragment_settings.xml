@@ -6,42 +6,83 @@
     android:layout_height="match_parent"
     tools:context=".ui.settings.SettingsFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_profile_picture"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/default_profile_picture"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_marginTop="12dp"
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            app:layout_constraintEnd_toEndOf="@+id/iv_profile_picture"
+            app:layout_constraintStart_toStartOf="@+id/iv_profile_picture"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile_picture" />
+
+        <TextView
+            android:id="@+id/tv_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_username"
+            app:layout_constraintStart_toStartOf="@+id/tv_username"
+            app:layout_constraintTop_toBottomOf="@id/tv_username" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_phone_number"
+            app:layout_constraintStart_toStartOf="@+id/tv_phone_number"
+            app:layout_constraintTop_toBottomOf="@id/tv_phone_number" />
+
 
         <TextView
             android:id="@+id/tv_our_team"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:drawablePadding="8dp"
             android:paddingVertical="24dp"
             android:paddingStart="12dp"
             android:text="Our Team"
+            android:textSize="20sp"
+            android:layout_margin="24dp"
             app:drawableStartCompat="@drawable/baseline_groups_24"
-            android:drawablePadding="8dp"/>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_email" />
 
         <TextView
             android:id="@+id/tv_logout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:drawablePadding="8dp"
             android:paddingVertical="24dp"
             android:paddingStart="12dp"
             android:text="Logout"
+            android:textSize="20sp"
             app:drawableStartCompat="@drawable/baseline_logout_24"
-            android:drawablePadding="8dp"/>
+            app:layout_constraintEnd_toEndOf="@+id/tv_our_team"
+            app:layout_constraintStart_toStartOf="@+id/tv_our_team"
+            app:layout_constraintTop_toBottomOf="@id/tv_our_team" />
 
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

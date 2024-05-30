@@ -39,6 +39,7 @@ class SettingsFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fetchProfile()
         binding.tvLogout.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Logout")
@@ -64,6 +65,22 @@ class SettingsFragment() : Fragment() {
             }
             findNavController().navigate(R.id.action_settingsFragment_to_teamFragment, null, options)
         }
+    }
+
+    private fun fetchProfile() {
+        viewModel.username.observe(viewLifecycleOwner) { username ->
+            binding.tvUsername.text = username
+        }
+
+        viewModel.email.observe(viewLifecycleOwner) { email ->
+            binding.tvEmail.text = email
+        }
+
+        viewModel.phoneNumber.observe(viewLifecycleOwner) { phoneNumber ->
+            binding.tvPhoneNumber.text = "+62$phoneNumber"
+        }
+
+        viewModel.fetchProfile()
     }
 
     override fun onCreateView(
