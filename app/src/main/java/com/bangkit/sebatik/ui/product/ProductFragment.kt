@@ -13,20 +13,30 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.Result
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.adapter.AllProductAdapter
+import com.bangkit.sebatik.data.adapter.ProductAdapter
 import com.bangkit.sebatik.data.dataStore
+import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.data.response.ProductResponseItem
 import com.bangkit.sebatik.databinding.FragmentProductBinding
 import com.bangkit.sebatik.util.ViewModelFactory
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ProductFragment : Fragment() {
 
     private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
     private lateinit var dataStore: DataStore<Preferences>
+    private lateinit var productList: ArrayList<Product>
+    private lateinit var  firebaseRef : DatabaseReference
 
     private val viewModel: ProductViewModel by viewModels(){
         ViewModelFactory.getInstance(requireContext(), UserPreferences.getInstance(dataStore))
@@ -35,6 +45,8 @@ class ProductFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataStore = requireContext().dataStore
+        firebaseRef = FirebaseDatabase.getInstance().getReference("products")
+        productList = arrayListOf()
     }
 
     override fun onCreateView(
@@ -42,14 +54,22 @@ class ProductFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductBinding.inflate(inflater, container, false)
-        return binding.root
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadAllProducts()
+//        loadAllProducts()
+        loadProducts()
         binding.btnPost.setOnClickListener { addProduct() }
+        binding.rvProduct.apply {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        }
+
+
     }
 
     private fun addProduct() {
@@ -66,29 +86,53 @@ class ProductFragment : Fragment() {
         }, 500)
     }
 
-    private fun loadAllProducts() {
-        viewModel.getAllProducts().observe(requireActivity()) {
-            if (it != null) {
-                when (it) {
-                    is Result.Loading -> showLoading(true)
-                    is Result.Success -> {
+//    private fun loadAllProducts() {
+//        viewModel.getAllProducts().observe(requireActivity()) {
+//            if (it != null) {
+//                when (it) {
+//                    is Result.Loading -> showLoading(true)
+//                    is Result.Success -> {
+//                        showLoading(false)
+//                        allProductList(it.data)
+//                    }
+//                    is Result.Error -> {
+//                        showLoading(false)
+//                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+//    private fun allProductList(product: PagingData<ProductResponseItem>) {
+//        val adapter = AllProductAdapter()
+//        adapter.submitData(lifecycle, product)
+//        binding.rvProduct.adapter = adapter
+//        binding.rvProduct.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+//    }
+
+    private fun loadProducts() {
+        showLoading(true)
+        firebaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                productList.clear()
+                if (snapshot.exists()) {
+                    for (productSnapshot in snapshot.children) {
                         showLoading(false)
-                        allProductList(it.data)
+                        val product = productSnapshot.getValue(Product::class.java)
+                        productList.add(product!!)
                     }
-                    is Result.Error -> {
-                        showLoading(false)
-                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    }
+                    val adapter = AllProductAdapter(productList)
+                    binding.rvProduct.adapter = adapter
+                    productList.reverse()
                 }
             }
-        }
-    }
+            override fun onCancelled(error: DatabaseError) {
+                showLoading(false)
+                Toast.makeText(context, "error : ${error.message}", Toast.LENGTH_SHORT).show()
+            }
 
-    private fun allProductList(product: PagingData<ProductResponseItem>) {
-        val adapter = AllProductAdapter()
-        adapter.submitData(lifecycle, product)
-        binding.rvProduct.adapter = adapter
-        binding.rvProduct.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        })
     }
 
     private fun showLoading(isLoading: Boolean) {

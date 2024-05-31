@@ -102,7 +102,8 @@ class HomeFragment : Fragment() {
 
     private fun loadProducts() {
 //        showLoading(true)
-        firebaseRef.addValueEventListener(object : ValueEventListener {
+        val query = firebaseRef.limitToLast(5)
+        query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 productList.clear()
                 if (snapshot.exists()) {
