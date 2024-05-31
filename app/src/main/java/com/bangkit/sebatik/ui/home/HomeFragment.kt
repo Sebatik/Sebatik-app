@@ -20,6 +20,7 @@ import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.adapter.CarouselAdapter
 import com.bangkit.sebatik.data.adapter.ProductAdapter
 import com.bangkit.sebatik.data.dataStore
+import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.data.models.User
 import com.bangkit.sebatik.data.response.ProductResponseItem
 import com.bangkit.sebatik.databinding.FragmentHomeBinding
@@ -30,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
@@ -39,6 +41,9 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var dataStore: DataStore<Preferences>
+    private lateinit var productList: ArrayList<Product>
+    private lateinit var  firebaseRef : DatabaseReference
+
     private val viewModel by viewModels<HomeViewModel>() {
         ViewModelFactory.getInstance(requireContext(), UserPreferences.getInstance(dataStore))
     }
@@ -48,6 +53,8 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         dataStore = requireContext().dataStore
         firebaseAuth = Firebase.auth
+        firebaseRef = FirebaseDatabase.getInstance().getReference("products")
+        productList = arrayListOf()
 
     }
 
@@ -67,6 +74,11 @@ class HomeFragment : Fragment() {
         loadProducts()
         fetchUser()
 
+        binding.rvLatestProduct.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+
         binding.btnScan.setOnClickListener {
             val options = navOptions {
                 anim {
@@ -76,6 +88,9 @@ class HomeFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_homeFragment_to_scanFragment, null, options)
         }
+
+        val adapter = ProductAdapter(productList)
+        binding.rvLatestProduct.adapter = adapter
     }
 
     private fun fetchUser() {
@@ -86,22 +101,25 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadProducts() {
-        viewModel.getProducts().observe(requireActivity()) {
-            if (it != null) {
-                when (it) {
-                    is Result.Loading -> showLoading(true)
-                    is Result.Success -> {
-                        showLoading(false)
-                        productList(it.data)
+//        showLoading(true)
+        firebaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                productList.clear()
+                if (snapshot.exists()) {
+                    for (productSnapshot in snapshot.children) {
+//                        showLoading(false)
+                        val product = productSnapshot.getValue(Product::class.java)
+                        productList.add(product!!)
                     }
-                    is Result.Error -> {
-                        showLoading(false)
-                        Log.d("HomeFragment", "onViewCreated: ${it.error}")
-                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    }
+                    productList.reverse()
                 }
             }
-        }
+            override fun onCancelled(error: DatabaseError) {
+                showLoading(false)
+                Toast.makeText(context, "error : ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
     private fun setupCarousel() {
@@ -119,13 +137,6 @@ class HomeFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    private fun productList(items: List<ProductResponseItem>) {
-        val adapter = ProductAdapter()
-        adapter.submitList(items)
-        binding.rvLatestProduct.adapter = adapter
-        binding.rvLatestProduct.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onDestroyView() {

@@ -11,8 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.navigation.fragment.findNavController
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.dataStore
@@ -25,6 +27,10 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class AddProductFragment : Fragment() {
 
@@ -69,6 +75,7 @@ class AddProductFragment : Fragment() {
     }
 
     private fun postProduct() {
+        showLoading(true)
         val productName = binding.edName.text.toString()
         val productPrice = binding.edPrice.text.toString()
         val productDescription = binding.edDescription.text.toString()
@@ -88,7 +95,7 @@ class AddProductFragment : Fragment() {
                 .addOnSuccessListener { task ->
                     task.metadata!!.reference!!.downloadUrl
                         .addOnSuccessListener { url ->
-                            Toast.makeText(context, "Product Added", Toast.LENGTH_SHORT).show()
+                           showToast("Please Wait...")
                             val imgUrl = url.toString()
 
                             product = Product(
@@ -102,10 +109,22 @@ class AddProductFragment : Fragment() {
 
                             firebaseRef.child(productId).setValue(product)
                                 .addOnCompleteListener {
-                                    Toast.makeText(context, "Product Success", Toast.LENGTH_SHORT)
-                                        .show()
+                                    showLoading(false)
+                                    Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show()
+                                    val builder = AlertDialog.Builder(requireContext())
+                                    builder.setTitle("Success")
+                                        .setMessage("Your Product has been successfully added")
+                                        .setCancelable(true)
+                                        .setPositiveButton("OK") { _, _ ->
+                                            val fields = listOf(binding.edName, binding.edPrice, binding.edDescription)
+                                            fields.forEach { it.text!!.clear() }
+                                            binding.ivPreview.setImageResource(R.drawable.baseline_image_search_24)
+                                        }
+                                    val alert = builder.create()
+                                    alert.show()
                                 }
                                 .addOnFailureListener { error ->
+                                    showLoading(false)
                                     Toast.makeText(
                                         context,
                                         "error ${error.message}",
@@ -116,7 +135,6 @@ class AddProductFragment : Fragment() {
                         }
                 }
         }
-
     }
 
     private fun startGallery() {
@@ -158,6 +176,11 @@ class AddProductFragment : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

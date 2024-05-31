@@ -1,15 +1,17 @@
 package com.bangkit.sebatik.data.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.data.response.ProductResponseItem
 import com.bangkit.sebatik.databinding.ProductItemBinding
 import com.bumptech.glide.Glide
 
-class ProductAdapter(): ListAdapter<ProductResponseItem, ProductAdapter.ViewHolder>(DIFF_CALLBACK) {
+class ProductAdapter(private val productList : ArrayList<Product>): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -23,33 +25,42 @@ class ProductAdapter(): ListAdapter<ProductResponseItem, ProductAdapter.ViewHold
         return ViewHolder(binding)
     }
 
+    override fun getItemCount(): Int {
+        return productList.size
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val explore = getItem(position)
-        holder.binding.tvProductTitle.text = explore.title
-        holder.binding.tvPrice.text = "$ " + explore.price.toString()
-        Glide.with(holder.itemView)
-            .load(explore.image)
-            .into(holder.binding.ivProduct)
+        val product = productList[position]
+        holder.apply {
+            binding.apply {
+                tvPrice.text = product.price
+                tvProductTitle.text = product.batikName
+                tvUsername.text = product.username
+                Glide.with(itemView)
+                    .load(product.image)
+                    .into(ivProduct)
+            }
+        }
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ProductResponseItem>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Product>() {
             override fun areItemsTheSame(
-                oldItem: ProductResponseItem,
-                newItem: ProductResponseItem
+                oldItem: Product,
+                newItem: Product
             ): Boolean {
                 return oldItem == newItem
             }
 
+            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(
-                oldItem: ProductResponseItem,
-                newItem: ProductResponseItem
+                oldItem: Product,
+                newItem: Product
             ): Boolean {
                 return oldItem == newItem
             }
 
         }
     }
-
 
 }

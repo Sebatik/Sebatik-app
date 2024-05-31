@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bangkit.sebatik.data.Result
+import com.bangkit.sebatik.data.adapter.ProductAdapter
+import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.data.models.User
 import com.bangkit.sebatik.data.repository.Repository
 import com.bangkit.sebatik.data.response.ProductResponseItem
@@ -43,5 +45,26 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
             })
         }
     }
+
+//    private fun loadProducts() {
+//        firebaseRef.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                productList.clear()
+//                if (snapshot.exists()) {
+//                    for (productSnapshot in snapshot.children) {
+//                        val product = productSnapshot.getValue(Product::class.java)
+//                        productList.add(product!!)
+//                    }
+//                }
+//                val adapter = ProductAdapter(productList)
+//                binding.rvLatestProduct.adapter = adapter
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Toast.makeText(context, "error : ${error.message}", Toast.LENGTH_SHORT).show()
+//            }
+//
+//        })
+//    }
 
 }
