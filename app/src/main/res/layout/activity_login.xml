@@ -84,14 +84,13 @@
                 android:textStyle="bold"
                 android:text="Email"
                 app:layout_constraintStart_toStartOf="@id/email_layout"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                app:startIconDrawable="@drawable/baseline_attach_email_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_username">
@@ -100,6 +99,8 @@
                     android:id="@+id/ed_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:drawableStart="@drawable/baseline_attach_email_24"
+                    android:drawablePadding="8dp"
                     android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,7 +119,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                app:startIconDrawable="@drawable/baseline_lock_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_password"
@@ -128,7 +128,8 @@
                     android:id="@+id/ed_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:drawableStart="@drawable/baseline_lock_24"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

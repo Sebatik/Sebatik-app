@@ -83,10 +83,9 @@
             app:layout_constraintStart_toStartOf="@id/tv_name">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_email"
+                android:id="@+id/ed_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:enabled="false"/>
+                android:layout_height="match_parent"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -139,6 +138,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/btn_post"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="POST"

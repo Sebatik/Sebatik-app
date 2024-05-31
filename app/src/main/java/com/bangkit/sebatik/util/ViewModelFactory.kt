@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.di.Injection
 import com.bangkit.sebatik.data.repository.Repository
+import com.bangkit.sebatik.ui.addproduct.AddProductViewModel
 import com.bangkit.sebatik.ui.home.HomeViewModel
 import com.bangkit.sebatik.ui.login.LoginViewModel
 import com.bangkit.sebatik.ui.product.ProductViewModel
@@ -24,6 +25,8 @@ class ViewModelFactory private constructor(private val repository: Repository, p
             return HomeViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(ProductViewModel::class.java)) {
             return ProductViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(AddProductViewModel::class.java)) {
+            return AddProductViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
