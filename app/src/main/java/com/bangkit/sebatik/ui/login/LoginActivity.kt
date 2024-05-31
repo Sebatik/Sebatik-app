@@ -62,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
         } else {
+            showLoading(false)
             Toast.makeText(this, "Empty Fields", Toast.LENGTH_SHORT).show()
         }
     }

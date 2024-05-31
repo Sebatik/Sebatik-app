@@ -54,12 +54,14 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.makeText(this, "Signup Successful", Toast.LENGTH_SHORT).show()
                         toLogin()
                     } else {
+                        showLoading(false)
                         val parts = task.exception.toString().split(":")
                         val errorMessage = parts[1].trim()
                         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
         } else {
+            showLoading(false)
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
         }
     }
