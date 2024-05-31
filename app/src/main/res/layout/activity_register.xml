@@ -35,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Sign in"
+            android:textStyle="bold"
             android:textColor="@color/blue"/>
     </LinearLayout>
 
@@ -64,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
+                app:startIconDrawable="@drawable/baseline_person_24"
                 app:layout_constraintTop_toBottomOf="@id/tv_username"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -87,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
+                app:startIconDrawable="@drawable/baseline_attach_email_24"
                 app:layout_constraintTop_toBottomOf="@id/tv_email"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -112,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:hint="+62"
+                app:startIconDrawable="@drawable/ic_country_code"
                 app:layout_constraintTop_toBottomOf="@id/tv_phone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -137,6 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
+                app:startIconDrawable="@drawable/baseline_lock_24"
                 app:layout_constraintTop_toBottomOf="@id/tv_password"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -154,7 +158,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="20dp"
-                android:text="Sign Up"
+                android:text="SIGN UP"
                 android:background="@drawable/background_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
