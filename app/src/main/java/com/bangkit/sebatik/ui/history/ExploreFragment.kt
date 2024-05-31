@@ -40,9 +40,11 @@ class ExploreFragment : Fragment() {
     }
 
     private fun setupExplore() {
-        binding.rvExplore.adapter = ExploreAdapter(getImages())
-        binding.rvExplore.setHasFixedSize(true)
-        binding.rvExplore.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        binding.apply {
+            rvExplore.adapter = ExploreAdapter(getImages())
+            rvExplore.setHasFixedSize(true)
+            binding.rvExplore.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        }
     }
 
     private fun getImages(): List<Int> {

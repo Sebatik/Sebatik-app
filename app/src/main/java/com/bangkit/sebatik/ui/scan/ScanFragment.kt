@@ -47,12 +47,8 @@ class ScanFragment : Fragment() {
         requireActivity().supportFragmentManager.popBackStack("home_fragment", 0)
 
         binding.apply {
-            btnGallery.setOnClickListener {
-                startGallery()
-            }
-            btnCamera.setOnClickListener {
-                startCamera()
-            }
+            btnGallery.setOnClickListener { startGallery() }
+            btnCamera.setOnClickListener { startCamera() }
         }
     }
 
@@ -99,9 +95,5 @@ class ScanFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        fun newInstance() = ScanFragment()
     }
 }

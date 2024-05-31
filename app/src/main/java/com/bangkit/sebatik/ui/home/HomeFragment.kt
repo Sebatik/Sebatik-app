@@ -64,6 +64,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupCarousel()
+        loadProducts()
+        fetchUser()
+
         binding.btnScan.setOnClickListener {
             val options = navOptions {
                 anim {
@@ -73,7 +76,16 @@ class HomeFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_homeFragment_to_scanFragment, null, options)
         }
+    }
 
+    private fun fetchUser() {
+        viewModel.username.observe(viewLifecycleOwner) { username ->
+            binding.tvUsername.text = "Hello ${username}"
+        }
+        viewModel.fetchUsername()
+    }
+
+    private fun loadProducts() {
         viewModel.getProducts().observe(requireActivity()) {
             if (it != null) {
                 when (it) {
@@ -90,12 +102,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
-        viewModel.username.observe(viewLifecycleOwner) { username ->
-            binding.tvUsername.text = "Hello ${username}"
-        }
-
-        viewModel.fetchUsername()
     }
 
     private fun setupCarousel() {
@@ -121,17 +127,6 @@ class HomeFragment : Fragment() {
         binding.rvLatestProduct.adapter = adapter
         binding.rvLatestProduct.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        val username: String? = null
-//        val isDataFetched = false
-//        if (!isDataFetched) {
-//            fetchUsername()
-//        } else {
-//            binding.tvUsername.text = username
-//        }
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

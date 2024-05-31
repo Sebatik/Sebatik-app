@@ -30,35 +30,39 @@ class LoginActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.tvToSignup.setOnClickListener{ toSignup() }
-        binding.btnLogin.setOnClickListener {
-            showLoading(true)
-            val email = binding.edEmail.text.toString()
-            val password = binding.edPassword.text.toString()
+        binding.apply {
+            tvToSignup.setOnClickListener { toSignup() }
+            btnLogin.setOnClickListener { login() }
+        }
+    }
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            showLoading(false)
-                            firebaseAuth.currentUser!!.getIdToken(true)
-                                .addOnCompleteListener {
-                                    if (it.isSuccessful) {
-                                        val idToken = it.result?.token
-                                        loginViewModel.isLogin(idToken.toString())
-                                        val intent = Intent(this, MainActivity::class.java)
-                                        startActivity(intent)
-                                        finish()
-                                    }
+    private fun login() {
+        showLoading(true)
+        val email = binding.edEmail.text.toString()
+        val password = binding.edPassword.text.toString()
+
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        showLoading(false)
+                        firebaseAuth.currentUser!!.getIdToken(true)
+                            .addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    val idToken = it.result?.token
+                                    loginViewModel.isLogin(idToken.toString())
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
                                 }
-                        } else {
-                            showLoading(false)
-                            Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
-                        }
+                            }
+                    } else {
+                        showLoading(false)
+                        Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
                     }
-            } else {
-                Toast.makeText(this, "Empty Fields", Toast.LENGTH_SHORT).show()
-            }
+                }
+        } else {
+            Toast.makeText(this, "Empty Fields", Toast.LENGTH_SHORT).show()
         }
     }
 

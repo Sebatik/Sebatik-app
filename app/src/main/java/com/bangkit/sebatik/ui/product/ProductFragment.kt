@@ -48,6 +48,25 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadAllProducts()
+        binding.btnPost.setOnClickListener { addProduct() }
+    }
+
+    private fun addProduct() {
+        binding.btnPost.postDelayed({
+            val options = navOptions {
+                anim {
+                    enter = R.anim.fade_in
+                    exit = R.anim.fade_out
+                    popEnter = R.anim.fade_in
+                    popExit = R.anim.fade_out
+                }
+            }
+            findNavController().navigate(R.id.action_productFragment_to_addProductFragment, null, options)
+        }, 500)
+    }
+
+    private fun loadAllProducts() {
         viewModel.getAllProducts().observe(requireActivity()) {
             if (it != null) {
                 when (it) {
@@ -63,25 +82,6 @@ class ProductFragment : Fragment() {
                 }
             }
         }
-
-        binding.btnPost.setOnClickListener {
-            binding.btnPost.postDelayed({
-                val options = navOptions {
-                    anim {
-                        enter = R.anim.fade_in
-                        exit = R.anim.fade_out
-                        popEnter = R.anim.fade_in
-                        popExit = R.anim.fade_out
-                    }
-                }
-                findNavController().navigate(R.id.action_productFragment_to_addProductFragment, null, options)
-            }, 500)
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun allProductList(product: PagingData<ProductResponseItem>) {
@@ -94,4 +94,10 @@ class ProductFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

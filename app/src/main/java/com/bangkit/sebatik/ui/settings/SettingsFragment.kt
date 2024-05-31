@@ -40,31 +40,36 @@ class SettingsFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fetchProfile()
-        binding.tvLogout.setOnClickListener {
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Logout")
-                .setMessage("Are you sure you want to logout?")
-                .setCancelable(true)
-                .setNegativeButton(getString(R.string.no)) {
-                        dialog, _ -> dialog.cancel()
-                }
-                .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                    viewModel.logout()
-                    navigateToActivity()
-                }
-            val alert = builder.create()
-            alert.show()
+        binding.apply {
+            tvLogout.setOnClickListener { logout() }
+            tvOurTeam.setOnClickListener { navigateToTeam() }
         }
+    }
 
-        binding.tvOurTeam.setOnClickListener {
-            val options = navOptions {
-                anim {
-                    enter = R.anim.fade_in
-                    popExit = R.anim.fade_out
-                }
+    private fun navigateToTeam() {
+        val options = navOptions {
+            anim {
+                enter = R.anim.fade_in
+                popExit = R.anim.fade_out
             }
-            findNavController().navigate(R.id.action_settingsFragment_to_teamFragment, null, options)
         }
+        findNavController().navigate(R.id.action_settingsFragment_to_teamFragment, null, options)
+    }
+
+    private fun logout() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setCancelable(true)
+            .setNegativeButton(getString(R.string.no)) {
+                    dialog, _ -> dialog.cancel()
+            }
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.logout()
+                navigateToActivity()
+            }
+        val alert = builder.create()
+        alert.show()
     }
 
     private fun fetchProfile() {
