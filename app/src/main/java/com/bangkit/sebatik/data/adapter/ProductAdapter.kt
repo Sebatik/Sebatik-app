@@ -4,14 +4,12 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.sebatik.data.models.Product
-import com.bangkit.sebatik.data.response.ProductResponseItem
 import com.bangkit.sebatik.databinding.ProductItemBinding
 import com.bumptech.glide.Glide
 
-class ProductAdapter(private val productList : ArrayList<Product>): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(private val productList: MutableList<Product>): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root) {
 

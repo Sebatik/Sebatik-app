@@ -2,7 +2,6 @@ package com.bangkit.sebatik.ui.home
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +9,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.sebatik.R
-import com.bangkit.sebatik.data.Result
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.adapter.CarouselAdapter
 import com.bangkit.sebatik.data.adapter.ProductAdapter
 import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.data.models.Product
-import com.bangkit.sebatik.data.models.User
-import com.bangkit.sebatik.data.response.ProductResponseItem
 import com.bangkit.sebatik.databinding.FragmentHomeBinding
 import com.bangkit.sebatik.util.ViewModelFactory
 import com.google.android.material.carousel.CarouselSnapHelper
@@ -34,7 +29,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -43,11 +37,12 @@ class HomeFragment : Fragment() {
     private lateinit var dataStore: DataStore<Preferences>
     private lateinit var productList: ArrayList<Product>
     private lateinit var  firebaseRef : DatabaseReference
+    private lateinit var firebaseAuth: FirebaseAuth
 
     private val viewModel by viewModels<HomeViewModel>() {
         ViewModelFactory.getInstance(requireContext(), UserPreferences.getInstance(dataStore))
     }
-    private lateinit var firebaseAuth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
