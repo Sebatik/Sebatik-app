@@ -1,6 +1,7 @@
 package com.bangkit.sebatik.ui.product
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +20,11 @@ import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.databinding.FragmentProductBinding
 import com.bangkit.sebatik.util.ViewModelFactory
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ProductFragment : Fragment() {
 
@@ -29,6 +33,7 @@ class ProductFragment : Fragment() {
     private lateinit var dataStore: DataStore<Preferences>
     private lateinit var productList: ArrayList<Product>
     private lateinit var  firebaseRef : DatabaseReference
+    private lateinit var valueEventListener: ValueEventListener
 
     private val viewModel: ProductViewModel by viewModels(){
         ViewModelFactory.getInstance(requireContext(), UserPreferences.getInstance(dataStore))
@@ -53,17 +58,12 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        loadAllProducts()
-//        loadProducts()
+        loadProducts()
         binding.btnPost.setOnClickListener { addProduct() }
         binding.rvProduct.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         }
-
-        val adapter = AllProductAdapter(viewModel.productList)
-        binding.rvProduct.adapter = adapter
-        viewModel.loadProducts()
     }
 
     private fun addProduct() {
@@ -80,27 +80,32 @@ class ProductFragment : Fragment() {
         }, 500)
     }
 
-//    private fun loadProducts() {
-//        firebaseRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                productList.clear()
-//                if (snapshot.exists()) {
-//                    for (productSnapshot in snapshot.children) {
-//                        val product = productSnapshot.getValue(Product::class.java)
-//                        productList.add(product!!)
-//                    }
-//                    val adapter = AllProductAdapter(productList)
-//                    binding.rvProduct.adapter = adapter
-//                    productList.reverse()
-//                }
-//            }
-//            override fun onCancelled(error: DatabaseError) {
-//                showLoading(false)
-//                Toast.makeText(context, "error : ${error.message}", Toast.LENGTH_SHORT).show()
-//            }
-//
-//        })
-//    }
+    private fun loadProducts() {
+        showLoading(true)
+        firebaseRef = FirebaseDatabase.getInstance().getReference("products")
+        productList = arrayListOf()
+        valueEventListener = firebaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (isAdded && !isDetached) {
+                    showLoading(false)
+                    productList.clear()
+                    if (snapshot.exists()) {
+                        for (productSnapshot in snapshot.children) {
+                            val product = productSnapshot.getValue(Product::class.java)
+                            productList.add(product!!)
+                        }
+                        productList.reverse()
+                        val adapter = AllProductAdapter(productList)
+                        binding.rvProduct.adapter = adapter
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase Error", error.message)
+            }
+
+        })
+    }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
@@ -109,6 +114,8 @@ class ProductFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        firebaseRef.removeEventListener(valueEventListener)
+
     }
 
 }

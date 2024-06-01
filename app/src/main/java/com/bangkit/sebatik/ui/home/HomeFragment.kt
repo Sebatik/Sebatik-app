@@ -14,6 +14,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.UserPreferences
+import com.bangkit.sebatik.data.adapter.AllProductAdapter
 import com.bangkit.sebatik.data.adapter.CarouselAdapter
 import com.bangkit.sebatik.data.adapter.ProductAdapter
 import com.bangkit.sebatik.data.dataStore
@@ -50,7 +51,6 @@ class HomeFragment : Fragment() {
         firebaseAuth = Firebase.auth
         firebaseRef = FirebaseDatabase.getInstance().getReference("products")
         productList = arrayListOf()
-
     }
 
     override fun onCreateView(
@@ -66,12 +66,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupCarousel()
-        loadProducts()
         fetchUser()
+        loadProducts()
 
-        binding.rvLatestProduct.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.apply {
+            rvLatestProduct.setHasFixedSize(true)
+            rvLatestProduct.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
         binding.btnScan.setOnClickListener {
@@ -84,8 +84,6 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_scanFragment, null, options)
         }
 
-        val adapter = ProductAdapter(productList)
-        binding.rvLatestProduct.adapter = adapter
     }
 
     private fun fetchUser() {
@@ -96,23 +94,28 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadProducts() {
-//        showLoading(true)
-        val query = firebaseRef.limitToLast(5)
-        query.addValueEventListener(object : ValueEventListener {
+        showLoading(true)
+        firebaseRef.limitToLast(5).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                productList.clear()
-                if (snapshot.exists()) {
-                    for (productSnapshot in snapshot.children) {
-//                        showLoading(false)
-                        val product = productSnapshot.getValue(Product::class.java)
-                        productList.add(product!!)
+                if (isAdded && !isDetached) {
+                    showLoading(false)
+                    productList.clear()
+                    if (snapshot.exists()) {
+                        for (productSnapshot in snapshot.children) {
+                            val product = productSnapshot.getValue(Product::class.java)
+                            productList.add(product!!)
+                        }
+                        productList.reverse()
+                        val adapter = ProductAdapter(productList)
+                        binding.rvLatestProduct.adapter = adapter
                     }
-                    productList.reverse()
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-                showLoading(false)
-                Toast.makeText(context, "error : ${error.message}", Toast.LENGTH_SHORT).show()
+                if (isAdded && !isDetached) {
+                    showLoading(false)
+                    Toast.makeText(context, "error : ${error.message}", Toast.LENGTH_SHORT).show()
+                }
             }
 
         })

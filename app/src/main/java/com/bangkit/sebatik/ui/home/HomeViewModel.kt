@@ -16,17 +16,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class HomeViewModel(private val repository: Repository) : ViewModel() {
 
     private lateinit var firebaseAuth: FirebaseAuth
+
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> = _username
-
-    fun getProducts(): LiveData<Result<List<ProductResponseItem>>> = repository.getProducts()
-
+    
     fun fetchUsername() {
         firebaseAuth = Firebase.auth
         val currentUser = firebaseAuth.currentUser
@@ -45,26 +45,4 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
             })
         }
     }
-
-//    private fun loadProducts() {
-//        firebaseRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                productList.clear()
-//                if (snapshot.exists()) {
-//                    for (productSnapshot in snapshot.children) {
-//                        val product = productSnapshot.getValue(Product::class.java)
-//                        productList.add(product!!)
-//                    }
-//                }
-//                val adapter = ProductAdapter(productList)
-//                binding.rvLatestProduct.adapter = adapter
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Toast.makeText(context, "error : ${error.message}", Toast.LENGTH_SHORT).show()
-//            }
-//
-//        })
-//    }
-
 }

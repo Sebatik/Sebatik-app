@@ -65,8 +65,6 @@ class DetailProductFragment : Fragment() {
                     .load(args.image)
                     .into(binding.ivDetailProduct)}
         }
-
-
     }
 
     override fun onDestroyView() {
