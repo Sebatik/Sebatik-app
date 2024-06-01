@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.databinding.FragmentDetailProductBinding
+import com.bangkit.sebatik.util.toRupiah
 import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -52,7 +53,7 @@ class DetailProductFragment : Fragment() {
         val phoneNumber = "+62"+args.phoneNumber
         binding.apply {
             tvBatikName.text = args.productName
-            tvPriceDetailProduct.text = args.price
+            tvPriceDetailProduct.text = toRupiah(args.price!!)
             tvDescriptionContent.text = args.desc
             tvSellerName.text = args.sellerName
             btnContactSeller.setOnClickListener {

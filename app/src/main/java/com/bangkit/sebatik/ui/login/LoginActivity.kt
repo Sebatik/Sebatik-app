@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.databinding.ActivityLoginBinding
@@ -53,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
                                     loginViewModel.isLogin(idToken.toString())
                                     val intent = Intent(this, MainActivity::class.java)
                                     startActivity(intent)
+                                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                                     finish()
                                 }
                             }
@@ -72,5 +74,6 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun toSignup() {
         startActivity(Intent(this, RegisterActivity::class.java))
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }

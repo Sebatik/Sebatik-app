@@ -11,6 +11,7 @@ import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.databinding.AllProductItemBinding
 import com.bangkit.sebatik.ui.product.ProductFragment
 import com.bangkit.sebatik.ui.product.ProductFragmentDirections
+import com.bangkit.sebatik.util.toRupiah
 import com.bumptech.glide.Glide
 
 class AllProductAdapter(private val productList : List<Product>): RecyclerView.Adapter<AllProductAdapter.ViewHolder>() {
@@ -35,7 +36,7 @@ class AllProductAdapter(private val productList : List<Product>): RecyclerView.A
         val product = productList[position]
         holder.apply {
             binding.apply {
-                tvPrice.text = product.price
+                tvPrice.text = toRupiah(product.price!!)
                 tvProductTitle.text = product.batikName
                 tvUsername.text = product.username
                 tvPhoneNumber.text = product.phoneNumber

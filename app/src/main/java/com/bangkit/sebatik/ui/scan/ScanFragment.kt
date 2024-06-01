@@ -26,6 +26,7 @@ class ScanFragment : Fragment() {
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
 
+    // TODO: Compress image before upload
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

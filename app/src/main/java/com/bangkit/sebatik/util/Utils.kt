@@ -14,6 +14,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -36,6 +37,15 @@ fun getImageUri(context: Context): Uri {
         )
     }
     return uri ?: getImageUriForPreQ(context)
+}
+
+fun toRupiah(amountStr: String): String {
+    val localeID = Locale("in", "ID")  // Indonesian locale
+    val number = amountStr.toDoubleOrNull() ?: return amountStr  // Handle non-numeric strings
+
+    val numberFormat = NumberFormat.getCurrencyInstance(localeID)
+    numberFormat.minimumFractionDigits = 0  // Optional: Remove decimal places if desired
+    return numberFormat.format(number)
 }
 
 private fun getImageUriForPreQ(context: Context): Uri {

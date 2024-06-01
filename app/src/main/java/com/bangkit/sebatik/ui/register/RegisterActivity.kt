@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.models.User
 import com.bangkit.sebatik.databinding.ActivityRegisterBinding
 import com.bangkit.sebatik.ui.login.LoginActivity
@@ -74,6 +75,7 @@ class RegisterActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
     }
 }
