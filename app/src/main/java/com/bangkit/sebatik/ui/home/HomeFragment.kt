@@ -59,6 +59,9 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        fetchUser()
+
         return view
     }
 
@@ -66,24 +69,16 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupCarousel()
-        fetchUser()
         loadProducts()
 
         binding.apply {
-            rvLatestProduct.setHasFixedSize(true)
-            rvLatestProduct.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        }
-
-        binding.btnScan.setOnClickListener {
-            val options = navOptions {
-                anim {
-                    enter = R.anim.fade_in
-                    popExit = R.anim.fade_out
-                }
+            btnManageAccount.setOnClickListener {
+                navigateToDestination(R.id.action_homeFragment_to_settingsFragment, it)
             }
-            findNavController().navigate(R.id.action_homeFragment_to_scanFragment, null, options)
+            btnScan.setOnClickListener {
+                navigateToDestination(R.id.action_homeFragment_to_scanFragment, it)
+            }
         }
-
     }
 
     private fun fetchUser() {
@@ -106,8 +101,12 @@ class HomeFragment : Fragment() {
                             productList.add(product!!)
                         }
                         productList.reverse()
-                        val adapter = ProductAdapter(productList)
-                        binding.rvLatestProduct.adapter = adapter
+                        binding.apply {
+                            val adapter = ProductAdapter(productList)
+                            rvLatestProduct.adapter = adapter
+                            rvLatestProduct.setHasFixedSize(true)
+                            rvLatestProduct.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        }
                     }
                 }
             }
@@ -121,9 +120,23 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private fun navigateToDestination(destinationId: Int, anchorView: View) {
+        anchorView.postDelayed({
+            val options = navOptions {
+                anim {
+                    enter = R.anim.fade_in
+                    exit = R.anim.fade_out
+                    popEnter = R.anim.fade_in
+                    popExit = R.anim.fade_out
+                }
+            }
+            findNavController().navigate(destinationId, null, options)
+        }, 500)
+    }
+
     private fun setupCarousel() {
         CarouselSnapHelper().attachToRecyclerView(binding.rvExplore)
-        binding.rvExplore.adapter = CarouselAdapter(images = getImages())
+        binding.rvExplore.adapter = CarouselAdapter(getImages())
     }
 
     private fun getImages(): List<Int> {

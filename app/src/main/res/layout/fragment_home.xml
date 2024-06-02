@@ -100,5 +100,16 @@
             android:indeterminate="true"
             android:visibility="gone"/>
 
+        <ImageButton
+            android:id="@+id/btn_manage_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/baseline_manage_accounts_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toTopOf="@id/tv_username"
+            app:layout_constraintBottom_toBottomOf="@id/tv_username"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

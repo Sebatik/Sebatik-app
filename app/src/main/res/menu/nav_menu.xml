@@ -17,8 +17,8 @@
         android:title="Explore"
         android:id="@+id/exploreFragment"
         android:icon="@drawable/baseline_explore_24"/>
-    <item
-        android:title="Setting"
-        android:id="@+id/settingsFragment"
-        android:icon="@drawable/baseline_settings_24"/>
+<!--    <item-->
+<!--        android:title="Setting"-->
+<!--        android:id="@+id/settingsFragment"-->
+<!--        android:icon="@drawable/baseline_settings_24"/>-->
 </menu>

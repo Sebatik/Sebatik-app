@@ -83,6 +83,9 @@ dependencies {
     //paging 3
     implementation(libs.androidx.paging.runtime.ktx)
 
+    //smooth bottom navbar
+    implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
+
 
     /**
      * libraries :
