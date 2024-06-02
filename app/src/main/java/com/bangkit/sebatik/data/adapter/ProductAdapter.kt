@@ -4,13 +4,14 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.databinding.ProductItemBinding
 import com.bangkit.sebatik.util.toRupiah
 import com.bumptech.glide.Glide
 
-class ProductAdapter(private val productList: MutableList<Product>): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(): ListAdapter<Product, ProductAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     class ViewHolder(val binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -24,12 +25,8 @@ class ProductAdapter(private val productList: MutableList<Product>): RecyclerVie
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return productList.size
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product = productList[position]
+        val product = getItem(position)
         holder.apply {
             binding.apply {
                 tvPrice.text = toRupiah(product.price!!)

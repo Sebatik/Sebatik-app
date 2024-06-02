@@ -1,6 +1,7 @@
 package com.bangkit.sebatik.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.liveData
 import androidx.paging.Pager
@@ -8,22 +9,20 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.bangkit.sebatik.data.Result
+import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.data.response.ProductResponseItem
 import com.bangkit.sebatik.data.retrofit.ApiService
 import com.bangkit.sebatik.data.source.ProductPagingSource
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class Repository private constructor(private val apiService: ApiService) {
 
-    fun getProducts(): LiveData<Result<List<ProductResponseItem>>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getProducts()
-            emit(Result.Success(response))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message.toString()))
-        }
-    }
 
     fun getAllProducts() : LiveData<Result<PagingData<ProductResponseItem>>> = liveData {
         emit(Result.Loading)
@@ -42,6 +41,7 @@ class Repository private constructor(private val apiService: ApiService) {
             emit(Result.Error(e.message.toString()))
         }
     }
+
 
     companion object {
         @Volatile
