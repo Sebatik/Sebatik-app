@@ -60,12 +60,12 @@ class LoginActivity : AppCompatActivity() {
                             }
                     } else {
                         showLoading(false)
-                        Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show()
                     }
                 }
         } else {
             showLoading(false)
-            Toast.makeText(this, "Empty Fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.empty_field), Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="C241-PS260"
+            android:text="@string/c241_ps260"
             android:textStyle="bold"
             android:textSize="34sp"
             android:layout_marginBottom="8dp"/>
@@ -30,18 +30,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Android Developer"
+                android:text="@string/android_developer"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama : Rama Adji Prasetyo\nEmail : a211d4ky4261@bangkit.academy "/>
+                android:text="@string/MD_1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama : Dovan Nadhif Aqhari\nEmail : a009d4ky4251@bangkit.academy"/>
+                android:text="@string/MD_2"/>
         </LinearLayout>
 
         <LinearLayout
@@ -56,18 +56,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cloud Computing"
+                android:text="@string/cloud_computing"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama : Dimas Di Ajeng Duwi Saputra\nEmail : c211d4ky0482@bangkit.academy "/>
+                android:text="@string/CC_1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama : Diva Annisa Elvina\nEmail : c288d4kx0178@bangkit.academy"/>
+                android:text="@string/CC_2"/>
         </LinearLayout>
 
         <LinearLayout
@@ -82,23 +82,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Machine Learning"
+                android:text="@string/machine_learning"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama : Aditya Fathan Santoso\nEmail : m271d4ky2369@bangkit.academy "/>
+                android:text="@string/ML_1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama : Melani Putri Azalia\nEmail : m009d4kx2987@bangkit.academy"/>
+                android:text="@string/ML_2"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama : Shafira Alayna Fathih\nEmail : m009d4kx2949@bangkit.academy"/>
+                android:text="@string/ML_03"/>
         </LinearLayout>
     </LinearLayout>
 

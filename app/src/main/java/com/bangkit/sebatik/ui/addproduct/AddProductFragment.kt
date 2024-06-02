@@ -95,7 +95,7 @@ class AddProductFragment : Fragment() {
                 .addOnSuccessListener { task ->
                     task.metadata!!.reference!!.downloadUrl
                         .addOnSuccessListener { url ->
-                           showToast("Please Wait...")
+                           showToast(getString(R.string.uploading))
                             val imgUrl = url.toString()
 
                             product = Product(
@@ -110,14 +110,14 @@ class AddProductFragment : Fragment() {
                             firebaseRef.child(productId).setValue(product)
                                 .addOnCompleteListener {
                                     showLoading(false)
-                                    Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
                                     val builder = AlertDialog.Builder(requireContext())
-                                    builder.setTitle("Success")
-                                        .setMessage("Your Product has been successfully added")
+                                    builder.setTitle(getString(R.string.success))
+                                        .setMessage(getString(R.string.product_uploaded))
                                         .setCancelable(true)
                                         .setPositiveButton("OK") { _, _ ->
                                             val fields = listOf(binding.edName, binding.edPrice, binding.edDescription)
-                                            fields.forEach { it.text!!.clear() }
+                                            fields.forEach { field -> field.text!!.clear() }
                                             binding.ivPreview.setImageResource(R.drawable.baseline_image_search_24)
                                         }
                                     val alert = builder.create()
@@ -127,7 +127,7 @@ class AddProductFragment : Fragment() {
                                     showLoading(false)
                                     Toast.makeText(
                                         context,
-                                        "error ${error.message}",
+                                         "${error.message}",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
@@ -148,14 +148,12 @@ class AddProductFragment : Fragment() {
             currentImageUri = uri
             showImage()
         } else {
-            showToast("Tidak ada gambar yang dipilih")
+            showToast(getString(R.string.no_image_selected))
         }
     }
 
     private fun showImage() {
-        // TODO: Menampilkan gambar sesuai Gallery yang dipilih.
         currentImageUri?.let {
-            Log.d("Image URI", "showImage $it")
             binding.ivPreview.setImageURI(it)
         }
     }

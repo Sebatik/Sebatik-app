@@ -30,6 +30,7 @@
             android:layout_height="240dp"
             android:layout_margin="32dp"
             android:background="@drawable/border"
+            android:contentDescription="@string/product_image"
             android:padding="8dp"
             android:src="@drawable/baseline_image_search_24"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +70,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="32dp"
             android:background="@drawable/background_button"
-            android:text="Scan"
+            android:text="@string/scan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_gallery"
             app:layout_constraintTop_toTopOf="@+id/btn_gallery" />
@@ -79,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Batik Name"
+            android:text="@string/batik_name"
             app:layout_constraintStart_toStartOf="@+id/btn_camera"
             app:layout_constraintTop_toBottomOf="@id/btn_camera" />
 
@@ -103,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Price"
+            android:text="@string/price"
             app:layout_constraintStart_toStartOf="@id/name_layout"
             app:layout_constraintTop_toBottomOf="@id/name_layout" />
 
@@ -128,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Description"
+            android:text="@string/description"
             app:layout_constraintStart_toStartOf="@id/price_layout"
             app:layout_constraintTop_toBottomOf="@id/price_layout" />
 
@@ -151,7 +152,7 @@
             android:id="@+id/btn_post"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="POST"
+            android:text="@string/btn_post"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/background_button"
