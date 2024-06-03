@@ -1,9 +1,9 @@
 package com.bangkit.sebatik.ui.addproduct
 
+import com.bangkit.sebatik.util.LoadingDialog
 import android.net.Uri
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,34 +14,30 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.navigation.fragment.findNavController
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.databinding.FragmentAddProductBinding
-import com.bangkit.sebatik.ui.settings.SettingsViewModel
 import com.bangkit.sebatik.util.ViewModelFactory
 import com.bangkit.sebatik.util.getImageUri
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class AddProductFragment : Fragment() {
 
     private var _binding: FragmentAddProductBinding? = null
     private val binding get() = _binding!!
-    private var currentImageUri: Uri? = null
 
+    private lateinit var loadingDialog: LoadingDialog
     private lateinit var firebaseRef : DatabaseReference
     private lateinit var storageRef : StorageReference
-    var username: String? = null
-    var phoneNumber: String? = null
+    private var username: String? = null
+    private var phoneNumber: String? = null
+    private var currentImageUri: Uri? = null
+
 
     private lateinit var dataStore: DataStore<Preferences>
     private val viewModel by viewModels<AddProductViewModel>() {
@@ -50,7 +46,9 @@ class AddProductFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         dataStore = requireContext().dataStore
+        loadingDialog = LoadingDialog(requireContext())
 
         firebaseRef = FirebaseDatabase.getInstance().getReference("products")
         storageRef = FirebaseStorage.getInstance().getReference("Images")
@@ -75,7 +73,7 @@ class AddProductFragment : Fragment() {
     }
 
     private fun postProduct() {
-        showLoading(true)
+        loadingDialog.showLoading()
         val productName = binding.edName.text.toString()
         val productPrice = binding.edPrice.text.toString()
         val productDescription = binding.edDescription.text.toString()
@@ -109,8 +107,7 @@ class AddProductFragment : Fragment() {
 
                             firebaseRef.child(productId).setValue(product)
                                 .addOnCompleteListener {
-                                    showLoading(false)
-                                    Toast.makeText(context, getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
+                                    loadingDialog.hideLoading()
                                     val builder = AlertDialog.Builder(requireContext())
                                     builder.setTitle(getString(R.string.success))
                                         .setMessage(getString(R.string.product_uploaded))
@@ -124,7 +121,7 @@ class AddProductFragment : Fragment() {
                                     alert.show()
                                 }
                                 .addOnFailureListener { error ->
-                                    showLoading(false)
+                                    loadingDialog.hideLoading()
                                     Toast.makeText(
                                         context,
                                          "${error.message}",
@@ -174,11 +171,6 @@ class AddProductFragment : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
