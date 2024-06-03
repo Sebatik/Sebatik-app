@@ -2,6 +2,8 @@ package com.bangkit.sebatik.ui.settings
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,12 +23,15 @@ import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.databinding.FragmentSettingsBinding
 import com.bangkit.sebatik.ui.login.LoginActivity
 import com.bangkit.sebatik.ui.team.TeamFragment
+import com.bangkit.sebatik.util.LoadingDialog
 import com.bangkit.sebatik.util.ViewModelFactory
 
 class SettingsFragment() : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var loadingDialog: LoadingDialog
     private lateinit var dataStore: DataStore<Preferences>
     private val viewModel by viewModels<SettingsViewModel>() {
         ViewModelFactory.getInstance(requireContext(), UserPreferences.getInstance(dataStore))
@@ -34,6 +39,7 @@ class SettingsFragment() : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataStore = requireContext().dataStore
+        loadingDialog = LoadingDialog(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,7 +71,9 @@ class SettingsFragment() : Fragment() {
                     dialog, _ -> dialog.cancel()
             }
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
+//                loadingDialog.showLoading()
                 viewModel.logout()
+//                loadingDialog.hideLoading()
                 navigateToActivity()
             }
         val alert = builder.create()

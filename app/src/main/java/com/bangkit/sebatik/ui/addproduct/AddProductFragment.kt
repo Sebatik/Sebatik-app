@@ -74,9 +74,9 @@ class AddProductFragment : Fragment() {
 
     private fun postProduct() {
         loadingDialog.showLoading()
-        val productName = binding.edName.text.toString()
-        val productPrice = binding.edPrice.text.toString()
-        val productDescription = binding.edDescription.text.toString()
+        val productName = binding.edName.text.toString().trim()
+        val productPrice = binding.edPrice.text.toString().trim()
+        val productDescription = binding.edDescription.text.toString().trim()
         viewModel.username.observe(viewLifecycleOwner) {
             username = it
         }
