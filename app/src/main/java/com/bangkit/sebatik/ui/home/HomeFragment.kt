@@ -66,9 +66,6 @@ class HomeFragment : Fragment() {
         setupHomepage()
 
         binding.apply {
-            btnManageAccount.setOnClickListener {
-                navigateToDestination(R.id.action_homeFragment_to_settingsFragment, it)
-            }
             btnScan.setOnClickListener {
                 navigateToDestination(R.id.action_homeFragment_to_scanFragment, it)
             }
@@ -76,21 +73,25 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupHomepage() {
-        viewModel.isLoading.observe(viewLifecycleOwner) { showLoading(it) }
-        viewModel.product.observe(viewLifecycleOwner) { setProduct(it) }
+        viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
+            showLoading(loading)
+        }
+        viewModel.product.observe(viewLifecycleOwner) { product ->
+            setProduct(product)
+        }
         viewModel.username.observe(viewLifecycleOwner) { username ->
             binding.tvUsername.text = "Hello ${username}"
         }
         viewModel.fetchUsername()
         viewModel.loadProducts()
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvLatestProduct.layoutManager = layoutManager
     }
 
     private fun setProduct(product: List<Product>) {
         val productAdapter = ProductAdapter()
         productAdapter.submitList(product)
         binding.rvLatestProduct.adapter = productAdapter
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvLatestProduct.layoutManager = layoutManager
     }
 
     private fun navigateToDestination(destinationId: Int, anchorView: View) {

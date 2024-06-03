@@ -66,7 +66,7 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
                             val product = productSnapshot.getValue(Product::class.java)
                             productList.add(product!!)
                         }
-                        _product.value = productList
+                        _product.value = productList.reversed()
                     }
             }
             override fun onCancelled(error: DatabaseError) {

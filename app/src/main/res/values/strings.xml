@@ -56,4 +56,5 @@
     <string name="home">Home</string>
     <string name="product">Product</string>
     <string name="explore">Explore</string>
+    <string name="profile">Profile</string>
 </resources>
