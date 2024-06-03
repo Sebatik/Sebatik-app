@@ -1,4 +1,4 @@
-package com.bangkit.sebatik.ui.history
+package com.bangkit.sebatik.ui.explore
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -17,7 +17,7 @@ class ExploreFragment : Fragment() {
     private var _binding: FragmentExploreBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: HistoryViewModel by viewModels()
+    private val viewModel: ExploreViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -50,7 +50,7 @@ class DetailProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val phoneNumber = "+62"+args.phoneNumber
+        val phoneNumber = getString(R.string.country_code)+args.phoneNumber
         binding.apply {
             tvBatikName.text = args.productName
             tvPriceDetailProduct.text = toRupiah(args.price!!)

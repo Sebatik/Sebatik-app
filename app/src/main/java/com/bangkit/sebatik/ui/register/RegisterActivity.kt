@@ -52,7 +52,7 @@ class RegisterActivity : AppCompatActivity() {
                         val userId = firebaseAuth.currentUser!!.uid
                         val user = User(username, email, phoneNumber)
                         database.child("users").child(userId).setValue(user)
-                        Toast.makeText(this, "Signup Successful", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.register_success), Toast.LENGTH_SHORT).show()
                         toLogin()
                     } else {
                         showLoading(false)
@@ -63,7 +63,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
         } else {
             showLoading(false)
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.empty_field), Toast.LENGTH_SHORT).show()
         }
     }
 

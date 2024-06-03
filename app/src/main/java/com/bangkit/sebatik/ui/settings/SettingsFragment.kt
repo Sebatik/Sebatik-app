@@ -58,8 +58,8 @@ class SettingsFragment() : Fragment() {
 
     private fun logout() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Logout")
-            .setMessage("Are you sure you want to logout?")
+        builder.setTitle(getString(R.string.logout))
+            .setMessage(getString(R.string.logout_message))
             .setCancelable(true)
             .setNegativeButton(getString(R.string.no)) {
                     dialog, _ -> dialog.cancel()
@@ -82,7 +82,7 @@ class SettingsFragment() : Fragment() {
         }
 
         viewModel.phoneNumber.observe(viewLifecycleOwner) { phoneNumber ->
-            binding.tvPhoneNumber.text = "+62$phoneNumber"
+            binding.tvPhoneNumber.text = getString(R.string.country_code)+"$phoneNumber"
         }
 
         viewModel.fetchProfile()

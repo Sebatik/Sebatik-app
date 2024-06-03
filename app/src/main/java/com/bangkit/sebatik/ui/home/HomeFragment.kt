@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.sebatik.R
+import com.bangkit.sebatik.data.Result
 import com.bangkit.sebatik.data.UserPreferences
-import com.bangkit.sebatik.data.adapter.AllProductAdapter
 import com.bangkit.sebatik.data.adapter.CarouselAdapter
 import com.bangkit.sebatik.data.adapter.ProductAdapter
 import com.bangkit.sebatik.data.dataStore
@@ -36,7 +36,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var dataStore: DataStore<Preferences>
-    private lateinit var productList: ArrayList<Product>
     private lateinit var  firebaseRef : DatabaseReference
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -44,13 +43,11 @@ class HomeFragment : Fragment() {
         ViewModelFactory.getInstance(requireContext(), UserPreferences.getInstance(dataStore))
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataStore = requireContext().dataStore
         firebaseAuth = Firebase.auth
         firebaseRef = FirebaseDatabase.getInstance().getReference("products")
-        productList = arrayListOf()
     }
 
     override fun onCreateView(
@@ -66,64 +63,54 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupCarousel()
-        fetchUser()
-        loadProducts()
+        setupHomepage()
 
         binding.apply {
-            rvLatestProduct.setHasFixedSize(true)
-            rvLatestProduct.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        }
-
-        binding.btnScan.setOnClickListener {
-            val options = navOptions {
-                anim {
-                    enter = R.anim.fade_in
-                    popExit = R.anim.fade_out
-                }
+            btnScan.setOnClickListener {
+                navigateToDestination(R.id.action_homeFragment_to_scanFragment, it)
             }
-            findNavController().navigate(R.id.action_homeFragment_to_scanFragment, null, options)
         }
-
     }
 
-    private fun fetchUser() {
+    private fun setupHomepage() {
+        viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
+            showLoading(loading)
+        }
+        viewModel.product.observe(viewLifecycleOwner) { product ->
+            setProduct(product)
+        }
         viewModel.username.observe(viewLifecycleOwner) { username ->
             binding.tvUsername.text = "Hello ${username}"
         }
         viewModel.fetchUsername()
+        viewModel.loadProducts()
     }
 
-    private fun loadProducts() {
-        showLoading(true)
-        firebaseRef.limitToLast(5).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (isAdded && !isDetached) {
-                    showLoading(false)
-                    productList.clear()
-                    if (snapshot.exists()) {
-                        for (productSnapshot in snapshot.children) {
-                            val product = productSnapshot.getValue(Product::class.java)
-                            productList.add(product!!)
-                        }
-                        productList.reverse()
-                        val adapter = ProductAdapter(productList)
-                        binding.rvLatestProduct.adapter = adapter
-                    }
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-                if (isAdded && !isDetached) {
-                    showLoading(false)
-                    Toast.makeText(context, "error : ${error.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
+    private fun setProduct(product: List<Product>) {
+        val productAdapter = ProductAdapter()
+        productAdapter.submitList(product)
+        binding.rvLatestProduct.adapter = productAdapter
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvLatestProduct.layoutManager = layoutManager
+    }
 
-        })
+    private fun navigateToDestination(destinationId: Int, anchorView: View) {
+        anchorView.postDelayed({
+            val options = navOptions {
+                anim {
+                    enter = R.anim.fade_in
+                    exit = R.anim.fade_out
+                    popEnter = R.anim.fade_in
+                    popExit = R.anim.fade_out
+                }
+            }
+            findNavController().navigate(destinationId, null, options)
+        }, 500)
     }
 
     private fun setupCarousel() {
         CarouselSnapHelper().attachToRecyclerView(binding.rvExplore)
-        binding.rvExplore.adapter = CarouselAdapter(images = getImages())
+        binding.rvExplore.adapter = CarouselAdapter(getImages())
     }
 
     private fun getImages(): List<Int> {
