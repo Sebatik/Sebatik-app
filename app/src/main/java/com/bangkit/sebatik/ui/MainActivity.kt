@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.teamFragment -> navView.visibility = View.GONE
                 R.id.addProductFragment -> navView.visibility = View.GONE
+                R.id.detailProductFragment -> navView.visibility = View.GONE
                 else -> navView.visibility = View.VISIBLE
             }
         }

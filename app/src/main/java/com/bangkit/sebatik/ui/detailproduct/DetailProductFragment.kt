@@ -8,12 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.databinding.FragmentDetailProductBinding
 import com.bangkit.sebatik.util.toRupiah
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -44,11 +47,19 @@ class DetailProductFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailProductBinding.inflate(inflater, container, false)
+
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val toolBar : MaterialToolbar = binding.toolbar
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        toolBar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
 
         val phoneNumber = getString(R.string.country_code)+args.phoneNumber
         binding.apply {
