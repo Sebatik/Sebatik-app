@@ -73,10 +73,12 @@ class SettingsFragment() : Fragment() {
                     dialog, _ -> dialog.cancel()
             }
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
-//                loadingDialog.showLoading()
-                viewModel.logout()
-//                loadingDialog.hideLoading()
-                navigateToActivity()
+                loadingDialog.showLoading()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    viewModel.logout()
+                    loadingDialog.hideLoading()
+                    navigateToActivity()
+                }, 2000)
             }
         val alert = builder.create()
         alert.show()
