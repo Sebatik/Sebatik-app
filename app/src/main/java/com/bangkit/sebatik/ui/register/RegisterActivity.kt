@@ -9,6 +9,7 @@ import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.models.User
 import com.bangkit.sebatik.databinding.ActivityRegisterBinding
 import com.bangkit.sebatik.ui.login.LoginActivity
+import com.bangkit.sebatik.util.LoadingDialog
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -20,6 +21,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database: DatabaseReference
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,7 @@ class RegisterActivity : AppCompatActivity() {
 
         database = FirebaseDatabase.getInstance().reference
         firebaseAuth = Firebase.auth
+        loadingDialog = LoadingDialog(this)
 
         binding.apply {
             tvToSignin.setOnClickListener { toLogin() }
@@ -37,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun createAccount() {
-        showLoading(true)
+        loadingDialog.showLoading()
         val email = binding.edEmail.text.toString()
         val password = binding.edPassword.text.toString()
         val username = binding.edUsername.text.toString()
@@ -48,27 +51,23 @@ class RegisterActivity : AppCompatActivity() {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        showLoading(false)
+                        loadingDialog.hideLoading()
                         val userId = firebaseAuth.currentUser!!.uid
                         val user = User(username, email, phoneNumber)
                         database.child("users").child(userId).setValue(user)
                         Toast.makeText(this, getString(R.string.register_success), Toast.LENGTH_SHORT).show()
                         toLogin()
                     } else {
-                        showLoading(false)
+                        loadingDialog.hideLoading()
                         val parts = task.exception.toString().split(":")
                         val errorMessage = parts[1].trim()
                         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
         } else {
-            showLoading(false)
+            loadingDialog.hideLoading()
             Toast.makeText(this, getString(R.string.empty_field), Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun toLogin() {

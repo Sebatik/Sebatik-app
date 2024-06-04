@@ -69,6 +69,9 @@ class HomeFragment : Fragment() {
             btnScan.setOnClickListener {
                 navigateToDestination(R.id.action_homeFragment_to_scanFragment, it)
             }
+            rvLatestProduct.setOnClickListener {
+                navigateToDestination(R.id.action_homeFragment_to_detailProductFragment, it)
+            }
         }
     }
 

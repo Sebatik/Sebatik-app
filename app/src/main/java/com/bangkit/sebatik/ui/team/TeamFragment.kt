@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.bangkit.sebatik.databinding.FragmentTeamBinding
+import com.google.android.material.appbar.MaterialToolbar
 
 
 class TeamFragment : Fragment() {
@@ -28,6 +31,12 @@ class TeamFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val toolBar : MaterialToolbar = binding.toolbar
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        toolBar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     override fun onDestroyView() {

@@ -13,6 +13,7 @@ import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.databinding.ActivityLoginBinding
 import com.bangkit.sebatik.ui.MainActivity
 import com.bangkit.sebatik.ui.register.RegisterActivity
+import com.bangkit.sebatik.util.LoadingDialog
 import com.bangkit.sebatik.util.ViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 
@@ -20,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var loadingDialog: LoadingDialog
     private val loginViewModel by viewModels<LoginViewModel>() {
         ViewModelFactory.getInstance(application, UserPreferences.getInstance(dataStore))
     }
@@ -30,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        loadingDialog = LoadingDialog(this)
 
         binding.apply {
             tvToSignup.setOnClickListener { toSignup() }
@@ -38,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        showLoading(true)
+        loadingDialog.showLoading()
         val email = binding.edEmail.text.toString()
         val password = binding.edPassword.text.toString()
 
@@ -46,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        showLoading(false)
+                        loadingDialog.hideLoading()
                         firebaseAuth.currentUser!!.getIdToken(true)
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
@@ -59,19 +62,16 @@ class LoginActivity : AppCompatActivity() {
                                 }
                             }
                     } else {
-                        showLoading(false)
+                        loadingDialog.hideLoading()
                         Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show()
                     }
                 }
         } else {
-            showLoading(false)
+            loadingDialog.hideLoading()
             Toast.makeText(this, getString(R.string.empty_field), Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
     private fun toSignup() {
         startActivity(Intent(this, RegisterActivity::class.java))
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)

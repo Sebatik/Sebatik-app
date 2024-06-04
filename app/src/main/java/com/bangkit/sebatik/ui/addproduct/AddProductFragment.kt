@@ -12,8 +12,10 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.navigation.fragment.findNavController
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.dataStore
@@ -21,6 +23,7 @@ import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.databinding.FragmentAddProductBinding
 import com.bangkit.sebatik.util.ViewModelFactory
 import com.bangkit.sebatik.util.getImageUri
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -65,6 +68,12 @@ class AddProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val toolBar : MaterialToolbar = binding.toolbar
+        (activity as AppCompatActivity).setSupportActionBar(toolBar)
+        toolBar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.apply {
             btnGallery.setOnClickListener { startGallery() }
             btnCamera.setOnClickListener { startCamera() }
@@ -74,9 +83,9 @@ class AddProductFragment : Fragment() {
 
     private fun postProduct() {
         loadingDialog.showLoading()
-        val productName = binding.edName.text.toString()
-        val productPrice = binding.edPrice.text.toString()
-        val productDescription = binding.edDescription.text.toString()
+        val productName = binding.edName.text.toString().trim()
+        val productPrice = binding.edPrice.text.toString().trim()
+        val productDescription = binding.edDescription.text.toString().trim()
         viewModel.username.observe(viewLifecycleOwner) {
             username = it
         }

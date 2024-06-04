@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.findFragment
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.databinding.AllProductItemBinding
 import com.bangkit.sebatik.ui.product.ProductFragment
@@ -53,7 +55,15 @@ class AllProductAdapter(private val productList : List<Product>): RecyclerView.A
                         product.phoneNumber.toString(),
                         product.image.toString()
                     )
-                    findNavController(it).navigate(action)
+                    val options = navOptions {
+                        anim {
+                            enter = R.anim.fade_in
+                            exit = R.anim.fade_out
+                            popEnter = R.anim.fade_in
+                            popExit = R.anim.fade_out
+                        }
+                    }
+                    findNavController(it).navigate(action, options)
                 }
             }
 
