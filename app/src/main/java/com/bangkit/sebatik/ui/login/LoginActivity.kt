@@ -2,6 +2,7 @@ package com.bangkit.sebatik.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -55,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
                                 if (it.isSuccessful) {
                                     val idToken = it.result?.token
                                     loginViewModel.isLogin(idToken.toString())
+                                    Log.d("Token", idToken!!)
                                     val intent = Intent(this, MainActivity::class.java)
                                     startActivity(intent)
                                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)

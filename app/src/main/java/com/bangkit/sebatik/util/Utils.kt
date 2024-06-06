@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Base64
 import androidx.core.content.FileProvider
 import com.bangkit.sebatik.BuildConfig
 import java.io.ByteArrayOutputStream
@@ -74,6 +75,14 @@ fun uriToFile(imageUri: Uri, context: Context): File {
 fun createCustomTempFile(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(timeStamp, ".jpg", storageDir)
+}
+
+fun base64ToBitmap(base64String: String): Bitmap? {
+    // Decode the base64 string into a byte array
+    val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+
+    // Convert the byte array into a bitmap
+    return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
 }
 
 fun File.reduceFileImage(): File {

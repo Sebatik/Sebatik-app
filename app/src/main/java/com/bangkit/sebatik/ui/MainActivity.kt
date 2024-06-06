@@ -1,17 +1,14 @@
 package com.bangkit.sebatik.ui
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import me.ibrahimsn.lib.SmoothBottomBar
 
 class MainActivity : AppCompatActivity() {
 

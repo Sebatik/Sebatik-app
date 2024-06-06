@@ -25,7 +25,7 @@
     <string name="latest_product">Latest Product</string>
     <string name="see_all">See All</string>
     <string name="add_product">add product</string>
-    <string name="scan_warning">Make sure the photo only contains a batik,\nif not it will affect to the result</string>
+    <string name="scan_warning">Please enter your batik picture, make sure the photo only contains a batik, if not it will affect to the result</string>
     <string name="button_to_gallery">button to gallery</string>
     <string name="button_to_camera">button to camera</string>
     <string name="our_team">Our Team</string>

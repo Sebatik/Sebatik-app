@@ -1,21 +1,35 @@
 package com.bangkit.sebatik.data.adapter
 
-import android.content.Context
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.RoundedCornersTransformation
-import com.bangkit.sebatik.R
+import com.bangkit.sebatik.data.response.DatasItem
 import com.bangkit.sebatik.databinding.ExploreItemBinding
+import com.bangkit.sebatik.util.base64ToBitmap
 import com.bumptech.glide.Glide
+import com.pixelcarrot.base64image.Base64Image
+import kotlin.io.encoding.ExperimentalEncodingApi
 
-class ExploreAdapter(private val images: List<Int>): RecyclerView.Adapter<ExploreAdapter.ViewHolder>()
-{
+class ExploreAdapter(): ListAdapter<DatasItem, ExploreAdapter.ViewHolder>(DIFF_CALLBACK) {
     class ViewHolder(val binding: ExploreItemBinding): RecyclerView.ViewHolder(binding.root) {
 
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val batikItem = getItem(position)
+        val convertedImage = base64ToBitmap(batikItem.batikImg)
+        holder.binding.apply {
+            tvExplore.text = batikItem.batikName.replace("_", " ")
+            tvDesc.text = batikItem.batikDesc
+            Glide.with(holder.itemView)
+                .load(convertedImage)
+                .into(ivExplore)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,11 +37,16 @@ class ExploreAdapter(private val images: List<Int>): RecyclerView.Adapter<Explor
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return images.size
-    }
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DatasItem>() {
+            override fun areItemsTheSame(oldItem: DatasItem, newItem: DatasItem): Boolean {
+                return oldItem == newItem
+            }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.ivExplore.setImageResource(images[position])
+            @SuppressLint("DiffUtilEquals")
+            override fun areContentsTheSame(oldItem: DatasItem, newItem: DatasItem): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }
