@@ -24,40 +24,19 @@ class Repository private constructor(
     private val pref: UserPreferences
 ) {
 
-
-    fun getAllBatik() : LiveData<Result<PagingData<DatasItem>>> = liveData {
-        emit(Result.Loading)
-        try {
-            val pager = Pager(
-                config = PagingConfig(
-                    pageSize = 5
-                ),
-                pagingSourceFactory = {
-                    ProductPagingSource(apiService, pref)
-                }
-            ).liveData
-            val pagingData = pager.asFlow().first()
-            emit(Result.Success(pagingData))
-        } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody().toString()
-            val error = Gson().fromJson(jsonInString, BatikResponse::class.java)
-            emit(Result.Error(error.toString()))
-        }
-    }
-
-    fun getAnotherBatik(): LiveData<Result<List<DatasItem>>> = liveData {
+    fun getBatik(): LiveData<Result<List<DatasItem>>> = liveData {
         emit(Result.Loading)
         try {
             val token = runBlocking {
                 pref.getToken().first()
             }
-            val response = ApiConfig.getApiService().getBatik("Bearer $token")
+            val response = apiService.getBatik("Bearer $token")
             val stories = response.payload.datas
             emit(Result.Success(stories))
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
             val error = Gson().fromJson(jsonInString, BatikResponse::class.java)
-            emit(Result.Error(error.toString()))
+            emit(Result.Error(error.message))
         }
     }
 

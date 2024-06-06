@@ -1,12 +1,10 @@
 package com.bangkit.sebatik.data.adapter
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.navOptions
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,8 +14,6 @@ import com.bangkit.sebatik.databinding.ExploreItemBinding
 import com.bangkit.sebatik.ui.explore.ExploreFragmentDirections
 import com.bangkit.sebatik.util.base64ToBitmap
 import com.bumptech.glide.Glide
-import com.pixelcarrot.base64image.Base64Image
-import kotlin.io.encoding.ExperimentalEncodingApi
 
 class ExploreAdapter(): ListAdapter<DatasItem, ExploreAdapter.ViewHolder>(DIFF_CALLBACK) {
     class ViewHolder(val binding: ExploreItemBinding): RecyclerView.ViewHolder(binding.root) {

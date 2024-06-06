@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.adapter.AllProductAdapter
-import com.bangkit.sebatik.data.adapter.ProductAdapter
 import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.databinding.FragmentProductBinding

@@ -1,23 +1,16 @@
 package com.bangkit.sebatik.ui.scan
 
 import android.net.Uri
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import com.bangkit.sebatik.R
-import com.bangkit.sebatik.data.UserPreferences
-import com.bangkit.sebatik.data.dataStore
+import androidx.fragment.app.Fragment
 import com.bangkit.sebatik.databinding.FragmentScanBinding
-import com.bangkit.sebatik.ui.login.LoginViewModel
-import com.bangkit.sebatik.util.ViewModelFactory
 import com.bangkit.sebatik.util.getImageUri
 
 class ScanFragment : Fragment() {

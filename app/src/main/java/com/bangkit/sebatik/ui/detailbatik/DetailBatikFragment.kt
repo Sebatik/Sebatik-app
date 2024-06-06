@@ -1,15 +1,14 @@
 package com.bangkit.sebatik.ui.detailbatik
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bangkit.sebatik.R
 import com.bangkit.sebatik.databinding.FragmentDetailBatikBinding
 import com.bangkit.sebatik.util.base64ToBitmap
 import com.bumptech.glide.Glide

@@ -1,19 +1,17 @@
 package com.bangkit.sebatik.ui.home
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.sebatik.R
-import com.bangkit.sebatik.data.Result
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.adapter.CarouselAdapter
 import com.bangkit.sebatik.data.adapter.ProductAdapter
@@ -25,11 +23,8 @@ import com.google.android.material.carousel.CarouselSnapHelper
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class HomeFragment : Fragment() {
 

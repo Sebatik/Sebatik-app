@@ -2,7 +2,6 @@ package com.bangkit.sebatik.ui.register
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.sebatik.R

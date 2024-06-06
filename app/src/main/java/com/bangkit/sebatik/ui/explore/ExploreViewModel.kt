@@ -8,7 +8,6 @@ import com.bangkit.sebatik.data.repository.Repository
 import com.bangkit.sebatik.data.response.DatasItem
 
 class ExploreViewModel(private val repository: Repository) : ViewModel() {
-    fun getAllBatik(): LiveData<Result<PagingData<DatasItem>>> = repository.getAllBatik()
 
-    fun getBatik(): LiveData<Result<List<DatasItem>>> = repository.getAnotherBatik()
+    fun getBatik(): LiveData<Result<List<DatasItem>>> = repository.getBatik()
 }
