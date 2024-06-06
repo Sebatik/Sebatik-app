@@ -78,10 +78,7 @@ fun createCustomTempFile(context: Context): File {
 }
 
 fun base64ToBitmap(base64String: String): Bitmap? {
-    // Decode the base64 string into a byte array
     val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
-
-    // Convert the byte array into a bitmap
     return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
 }
 
