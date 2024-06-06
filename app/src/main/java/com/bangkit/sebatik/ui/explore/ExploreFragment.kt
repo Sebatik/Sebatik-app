@@ -2,6 +2,8 @@ package com.bangkit.sebatik.ui.explore
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,6 +23,7 @@ import com.bangkit.sebatik.data.adapter.ExploreAdapter
 import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.data.response.DatasItem
 import com.bangkit.sebatik.databinding.FragmentExploreBinding
+import com.bangkit.sebatik.util.LoadingDialog
 import com.bangkit.sebatik.util.ViewModelFactory
 
 class ExploreFragment : Fragment() {
@@ -28,6 +31,7 @@ class ExploreFragment : Fragment() {
     private var _binding: FragmentExploreBinding? = null
     private val binding get() = _binding!!
     private lateinit var dataStore: DataStore<Preferences>
+    private lateinit var loadingDialog: LoadingDialog
 
     private val viewModel: ExploreViewModel by viewModels(){
         ViewModelFactory.getInstance(requireContext(), UserPreferences.getInstance(dataStore))
@@ -36,6 +40,7 @@ class ExploreFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataStore = requireContext().dataStore
+        loadingDialog = LoadingDialog(requireContext())
 
         // TODO: Use the ViewModel
     }
@@ -58,13 +63,17 @@ class ExploreFragment : Fragment() {
         viewModel.getBatik().observe(viewLifecycleOwner) {
             if (it != null) {
                 when (it) {
-                    is Result.Loading -> showLoading(true)
+                    is Result.Loading -> loadingDialog.showLoading()
                     is Result.Success -> {
-                        showLoading(false)
+//                        loadingDialog.hideLoading()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            loadingDialog.hideLoading()
+                        }, 2000)
                         batikList(it.data)
+
                     }
                     is Result.Error -> {
-                        showLoading(true)
+                        loadingDialog.hideLoading()
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                 }

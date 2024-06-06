@@ -56,7 +56,6 @@ class LoginActivity : AppCompatActivity() {
                                 if (it.isSuccessful) {
                                     val idToken = it.result?.token
                                     loginViewModel.isLogin(idToken.toString())
-                                    Log.d("Token", idToken!!)
                                     val intent = Intent(this, MainActivity::class.java)
                                     startActivity(intent)
                                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)

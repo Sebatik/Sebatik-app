@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.teamFragment -> navView.visibility = View.GONE
                 R.id.addProductFragment -> navView.visibility = View.GONE
                 R.id.detailProductFragment -> navView.visibility = View.GONE
+                R.id.detailBatikFragment -> navView.visibility = View.GONE
                 else -> navView.visibility = View.VISIBLE
             }
         }

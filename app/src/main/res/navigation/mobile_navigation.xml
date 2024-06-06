@@ -40,7 +40,11 @@
       android:id="@+id/exploreFragment"
       android:name="com.bangkit.sebatik.ui.explore.ExploreFragment"
       android:label="fragment_explore"
-      tools:layout="@layout/fragment_explore" />
+      tools:layout="@layout/fragment_explore" >
+    <action
+        android:id="@+id/action_exploreFragment_to_detailBatikFragment"
+        app:destination="@id/detailBatikFragment" />
+  </fragment>
   <fragment
       android:id="@+id/settingsFragment"
       android:name="com.bangkit.sebatik.ui.settings.SettingsFragment"
@@ -86,6 +90,21 @@
         app:argType="string" />
     <argument
         android:name="image"
+        app:argType="string" />
+  </fragment>
+  <fragment
+      android:id="@+id/detailBatikFragment"
+      android:name="com.bangkit.sebatik.ui.detailbatik.DetailBatikFragment"
+      android:label="DetailBatikFragment"
+      tools:layout="@layout/fragment_detail_batik">
+    <argument
+        android:name="batikName"
+        app:argType="string" />
+    <argument
+        android:name="batikImg"
+        app:argType="string" />
+    <argument
+        android:name="batikDesc"
         app:argType="string" />
   </fragment>
 </navigation>
