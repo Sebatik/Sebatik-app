@@ -1,5 +1,6 @@
 package com.bangkit.sebatik.ui.detailbatik
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,12 +46,15 @@ class DetailBatikFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        val imgUri = Uri.parse(args.batikImg)
+
         binding.apply {
-            tvBatikName.text = args.batikName
+            tvBatikName.text = args.batikName.replace("_", " ")
             tvDescriptionContent.text = args.batikDesc
             context?.let {
                 Glide.with(it.applicationContext)
                     .load(base64ToBitmap(args.batikImg))
+                    .load(imgUri)
                     .into(ivDetailBatik)
             }
         }

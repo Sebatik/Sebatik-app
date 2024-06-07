@@ -15,6 +15,9 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
+import com.bangkit.sebatik.R
 import com.bangkit.sebatik.data.Result
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.dataStore
@@ -128,7 +131,20 @@ class ScanFragment : Fragment() {
                         loadingDialog.hideLoading()
                         binding.tvResultName.text = it.data.batikName
                         binding.tvResultDescription.text = it.data.batikDesc
-                        showToast("Berhasil")
+                        val action = ScanFragmentDirections.actionScanFragmentToDetailBatikFragment(
+                            it.data.batikName.toString(),
+                            currentImageUri.toString(),
+                            it.data.batikDesc.toString()
+                        )
+                        val options = navOptions {
+                            anim {
+                                enter = R.anim.fade_in
+                                exit = R.anim.fade_out
+                                popEnter = R.anim.fade_in
+                                popExit = R.anim.fade_out
+                            }
+                        }
+                        findNavController().navigate(action, options)
                     }
                     is Result.Error -> {
                         loadingDialog.hideLoading()
