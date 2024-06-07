@@ -12,6 +12,7 @@ import com.bangkit.sebatik.ui.home.HomeViewModel
 import com.bangkit.sebatik.ui.login.LoginViewModel
 import com.bangkit.sebatik.ui.product.ProductViewModel
 import com.bangkit.sebatik.ui.register.RegisterViewModel
+import com.bangkit.sebatik.ui.scan.ScanViewModel
 import com.bangkit.sebatik.ui.settings.SettingsViewModel
 
 class ViewModelFactory private constructor(private val repository: Repository, private val pref: UserPreferences):
@@ -30,6 +31,8 @@ class ViewModelFactory private constructor(private val repository: Repository, p
             return AddProductViewModel() as T
         } else if (modelClass.isAssignableFrom(ExploreViewModel::class.java)) {
             return ExploreViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(ScanViewModel::class.java)) {
+            return ScanViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

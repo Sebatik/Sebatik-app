@@ -12,6 +12,7 @@ object Injection {
     fun provideRepository(context: Context): Repository {
         val pref = UserPreferences.getInstance(context.dataStore)
         val apiService = ApiConfig.getApiService()
-        return Repository.getInstance(apiService, pref)
+        val scanApiService = ApiConfig.getResult()
+        return Repository.getInstance(apiService, scanApiService ,pref)
     }
 }
