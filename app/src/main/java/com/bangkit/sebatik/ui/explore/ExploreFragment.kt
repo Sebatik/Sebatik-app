@@ -37,8 +37,6 @@ class ExploreFragment : Fragment() {
         super.onCreate(savedInstanceState)
         dataStore = requireContext().dataStore
         loadingDialog = LoadingDialog(requireContext())
-
-        // TODO: Use the ViewModel
     }
 
     override fun onCreateView(

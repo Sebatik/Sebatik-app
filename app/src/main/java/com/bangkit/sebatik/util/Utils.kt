@@ -41,11 +41,11 @@ fun getImageUri(context: Context): Uri {
 }
 
 fun toRupiah(amountStr: String): String {
-    val localeID = Locale("in", "ID")  // Indonesian locale
-    val number = amountStr.toDoubleOrNull() ?: return amountStr  // Handle non-numeric strings
+    val localeID = Locale("in", "ID")
+    val number = amountStr.toDoubleOrNull() ?: return amountStr
 
     val numberFormat = NumberFormat.getCurrencyInstance(localeID)
-    numberFormat.minimumFractionDigits = 0  // Optional: Remove decimal places if desired
+    numberFormat.minimumFractionDigits = 0
     return numberFormat.format(number)
 }
 

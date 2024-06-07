@@ -21,9 +21,6 @@ class DetailBatikFragment : Fragment() {
     private val binding get() = _binding!!
     private val args: DetailBatikFragmentArgs by navArgs()
 
-
-    private val viewModel: DetailBatikViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
