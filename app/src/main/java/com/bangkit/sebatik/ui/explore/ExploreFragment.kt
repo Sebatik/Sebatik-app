@@ -67,6 +67,7 @@ class ExploreFragment : Fragment() {
                     }
                     is Result.Error -> {
                         loadingDialog.hideLoading()
+                        binding.tvErrorExplore.visibility = View.VISIBLE
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                 }

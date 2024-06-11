@@ -11,6 +11,18 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discover You Batik Stories"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/tv_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,40 +41,43 @@
         <ImageView
             android:id="@+id/iv_preview"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="300dp"
             android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="100dp"
             android:background="@drawable/border"
             android:contentDescription="@string/product_image"
             android:padding="8dp"
             android:src="@drawable/scanner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <ImageButton
             android:id="@+id/btn_camera"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/background_button"
             android:backgroundTint="@color/brown"
             android:contentDescription="@string/button_to_camera"
             android:padding="8dp"
             android:src="@drawable/baseline_camera_alt_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_scan" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_scan" />
 
-        <ImageButton
+        <Button
             android:id="@+id/btn_gallery"
-            android:layout_width="48dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="12dp"
             android:background="@drawable/background_button"
             android:backgroundTint="@color/brown"
             android:contentDescription="@string/button_to_gallery"
             android:padding="8dp"
+            android:text="Select Image From Gallery"
             android:src="@drawable/baseline_folder_24"
+            app:layout_constraintEnd_toEndOf="@+id/btn_scan"
             app:layout_constraintStart_toEndOf="@+id/btn_camera"
             app:layout_constraintTop_toTopOf="@+id/btn_camera" />
 
@@ -70,15 +85,13 @@
             android:id="@+id/btn_scan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
             android:layout_marginTop="24dp"
-            android:layout_marginStart="12dp"
             android:background="@drawable/background_button"
-            android:drawableLeft="@drawable/icon_scan"
             android:gravity="center"
-            android:text="Scan your batik"
+            android:text="Scan Your Batik"
+            android:layout_marginHorizontal="32dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_gallery"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_notes" />
 
         <TextView

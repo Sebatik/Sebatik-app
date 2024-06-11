@@ -8,35 +8,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_navbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavbar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             app:itemIconTint="@color/white"
-            app:backgroundTint="@color/maroon"
+            app:backgroundTint="@color/brown"
             app:itemTextColor="@color/white"
             app:itemTextAppearanceActiveBoldEnabled="false"
             app:itemActiveIndicatorStyle="@color/transparent"
-            app:itemPadding="10dp"
-            app:cornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/nav_menu"/>
-
-    </androidx.cardview.widget.CardView>
-
 
     <fragment
         android:id="@+id/nav_host_fragment_activity_main"
@@ -47,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/cv_navbar"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavbar"
         app:navGraph="@navigation/mobile_navigation"/>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
