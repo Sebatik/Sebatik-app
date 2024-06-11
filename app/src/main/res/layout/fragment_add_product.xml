@@ -75,7 +75,7 @@
             app:layout_constraintTop_toTopOf="@+id/btn_camera" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btn_scan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"

@@ -15,19 +15,25 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.bangkit.sebatik.R
+import com.bangkit.sebatik.data.Result
 import com.bangkit.sebatik.data.UserPreferences
 import com.bangkit.sebatik.data.dataStore
 import com.bangkit.sebatik.data.models.Product
 import com.bangkit.sebatik.databinding.FragmentAddProductBinding
+import com.bangkit.sebatik.ui.scan.ScanFragmentDirections
 import com.bangkit.sebatik.util.LoadingDialog
 import com.bangkit.sebatik.util.ViewModelFactory
 import com.bangkit.sebatik.util.getImageUri
+import com.bangkit.sebatik.util.reduceFileImage
+import com.bangkit.sebatik.util.uriToFile
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.io.File
 
 class AddProductFragment : Fragment() {
 
@@ -78,6 +84,7 @@ class AddProductFragment : Fragment() {
             btnGallery.setOnClickListener { startGallery() }
             btnCamera.setOnClickListener { startCamera() }
             btnPost.setOnClickListener { postProduct() }
+            btnScan.setOnClickListener { scanBatik() }
         }
     }
 
@@ -140,6 +147,31 @@ class AddProductFragment : Fragment() {
 
                         }
                 }
+        }
+    }
+
+    private fun getScanBatik(file: File) {
+        viewModel.scanBatik(file).observe(requireActivity()) {
+            if (it != null) {
+                when (it) {
+                    is Result.Loading -> loadingDialog.showLoading()
+                    is Result.Success -> {
+                        loadingDialog.hideLoading()
+                        binding.edName.setText(it.data.batikName)
+                    }
+                    is Result.Error -> {
+                        loadingDialog.hideLoading()
+                        showToast("Gagal")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun scanBatik() {
+        currentImageUri?.let {
+            val imageFile = uriToFile(it, requireContext()).reduceFileImage()
+            getScanBatik(imageFile)
         }
     }
 

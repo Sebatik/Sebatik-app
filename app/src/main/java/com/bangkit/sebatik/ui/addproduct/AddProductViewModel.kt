@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bangkit.sebatik.data.models.User
+import com.bangkit.sebatik.data.repository.Repository
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -12,8 +13,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.io.File
 
-class AddProductViewModel : ViewModel() {
+class AddProductViewModel(private val repository: Repository) : ViewModel() {
 
     private lateinit var firebaseAuth: FirebaseAuth
     private val _username = MutableLiveData<String>()
@@ -40,5 +42,7 @@ class AddProductViewModel : ViewModel() {
             })
         }
     }
+
+    fun scanBatik(file: File?) = repository.scanBatik(file)
 
 }

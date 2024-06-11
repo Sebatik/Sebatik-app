@@ -28,7 +28,7 @@ class ViewModelFactory private constructor(private val repository: Repository, p
         } else if (modelClass.isAssignableFrom(ProductViewModel::class.java)) {
             return ProductViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(AddProductViewModel::class.java)) {
-            return AddProductViewModel() as T
+            return AddProductViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(ExploreViewModel::class.java)) {
             return ExploreViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(ScanViewModel::class.java)) {
