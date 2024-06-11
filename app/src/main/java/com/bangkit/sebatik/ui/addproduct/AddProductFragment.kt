@@ -157,7 +157,8 @@ class AddProductFragment : Fragment() {
                     is Result.Loading -> loadingDialog.showLoading()
                     is Result.Success -> {
                         loadingDialog.hideLoading()
-                        binding.edName.setText(it.data.batikName)
+                        val result = it.data.batikName?.replace("_", " ")
+                        binding.edName.setText(result)
                     }
                     is Result.Error -> {
                         loadingDialog.hideLoading()

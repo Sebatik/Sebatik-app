@@ -131,9 +131,9 @@ class ScanFragment : Fragment() {
                         loadingDialog.hideLoading()
                         binding.tvResultName.text = it.data.batikName
                         binding.tvResultDescription.text = it.data.batikDesc
-                        val action = ScanFragmentDirections.actionScanFragmentToDetailBatikFragment(
-                            it.data.batikName.toString(),
+                        val action = ScanFragmentDirections.actionScanFragmentToScanResultFragment(
                             currentImageUri.toString(),
+                            it.data.batikName.toString(),
                             it.data.batikDesc.toString()
                         )
                         val options = navOptions {

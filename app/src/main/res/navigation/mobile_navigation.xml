@@ -37,8 +37,8 @@
       android:label="fragment_scan"
       tools:layout="@layout/fragment_scan" >
     <action
-        android:id="@+id/action_scanFragment_to_detailBatikFragment"
-        app:destination="@id/detailBatikFragment" />
+        android:id="@+id/action_scanFragment_to_scanResultFragment"
+        app:destination="@id/scanResultFragment" />
   </fragment>
   <fragment
       android:id="@+id/exploreFragment"
@@ -106,6 +106,21 @@
         app:argType="string" />
     <argument
         android:name="batikImg"
+        app:argType="string" />
+    <argument
+        android:name="batikDesc"
+        app:argType="string" />
+  </fragment>
+  <fragment
+      android:id="@+id/scanResultFragment"
+      android:name="com.bangkit.sebatik.ui.scanresult.ScanResultFragment"
+      android:label="fragment_scan_result"
+      tools:layout="@layout/fragment_scan_result" >
+    <argument
+        android:name="batikImg"
+        app:argType="string" />
+    <argument
+        android:name="batikName"
         app:argType="string" />
     <argument
         android:name="batikDesc"
