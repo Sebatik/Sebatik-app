@@ -83,7 +83,9 @@ dependencies {
     //paging 3
     implementation(libs.androidx.paging.runtime.ktx)
 
-    implementation ("com.pixelcarrot.base64image:base64image:1.0.0")
+    implementation (libs.base64image)
+
+    implementation(libs.androidx.cardview)
 
 
     /**

@@ -66,7 +66,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_scan" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_gallery"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -75,19 +75,23 @@
             android:backgroundTint="@color/brown"
             android:contentDescription="@string/button_to_gallery"
             android:padding="8dp"
+            app:icon="@drawable/baseline_folder_24"
+            app:iconGravity="textStart"
             android:text="Select Image From Gallery"
             android:src="@drawable/baseline_folder_24"
             app:layout_constraintEnd_toEndOf="@+id/btn_scan"
             app:layout_constraintStart_toEndOf="@+id/btn_camera"
             app:layout_constraintTop_toTopOf="@+id/btn_camera" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_scan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@drawable/background_button"
-            android:gravity="center"
+            app:icon="@drawable/scanner"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
             android:text="Scan Your Batik"
             android:layout_marginHorizontal="32dp"
             app:layout_constraintEnd_toEndOf="parent"

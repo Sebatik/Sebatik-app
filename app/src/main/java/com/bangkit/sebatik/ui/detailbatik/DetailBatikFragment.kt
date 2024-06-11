@@ -43,15 +43,12 @@ class DetailBatikFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        val imgUri = Uri.parse(args.batikImg)
-
         binding.apply {
             tvBatikName.text = args.batikName.replace("_", " ")
             tvDescriptionContent.text = args.batikDesc
             context?.let {
                 Glide.with(it.applicationContext)
                     .load(base64ToBitmap(args.batikImg))
-                    .load(imgUri)
                     .into(ivDetailBatik)
             }
         }
