@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@color/brown"
     tools:context=".ui.register.RegisterActivity">
 
     <TextView
@@ -15,6 +15,7 @@
         android:text="@string/sign_up"
         android:textSize="36sp"
         android:fontFamily="@font/pacifico"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="72dp"
@@ -30,6 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="@string/already_have_an_account"/>
 
         <TextView
