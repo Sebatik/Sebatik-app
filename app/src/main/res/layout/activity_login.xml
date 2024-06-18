@@ -20,14 +20,15 @@
 
     <TextView
         android:id="@+id/tv_welcome"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:maxLines="2"
         android:fontFamily="@font/pacifico"
         android:text="@string/welcome_back"
-        android:textSize="36sp"
         android:textColor="@color/white"
+        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -49,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_up"
+            android:layout_marginStart="4dp"
             android:textStyle="bold"
             android:textColor="@color/blue"/>
     </LinearLayout>

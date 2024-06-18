@@ -57,6 +57,11 @@
     <string name="product">Product</string>
     <string name="explore">Explore</string>
     <string name="profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scan_your_batik">Scan Your Batik</string>
+    <string name="select_image_from_gallery">Select Image From Gallery</string>
+    <string name="upload_product">Upload Product</string>
+    <string name="scan_result">Scan Result</string>
+    <string name="discover_your_batik_stories">Discover Your Batik Stories</string>
+    <string name="find_your_perfect_fit">Find Your Perfect Fit</string>
+    <string name="indonesian_batik">Indonesian Batik</string>
 </resources>

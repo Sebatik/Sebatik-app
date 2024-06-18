@@ -45,7 +45,7 @@ class ExploreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
-        setupExplore()
+//        setupExplore()
         return binding.root
     }
 
