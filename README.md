@@ -1,4 +1,4 @@
-![Untitled (2)](https://github.com/Sebatik/Sebatik-app/assets/110832385/56139f61-b14d-4e28-be56-d3d92a28c7db)
+![Untitled (3)](https://github.com/Sebatik/Sebatik-app/assets/110832385/5119aff6-eff9-4ec4-a0da-31661aa98c93)
 
 <h3>Build With</h3>
 
