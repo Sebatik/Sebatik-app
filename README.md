@@ -1,3 +1,5 @@
+<h3>Application Preview</h3>
+
 ![Untitled (4)](https://github.com/Sebatik/Sebatik-app/assets/110832385/4ed20402-492c-4cb4-8932-9c7ad36d86ea)
 
 <h3>Build With</h3>
